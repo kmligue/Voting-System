@@ -1,6 +1,6 @@
 # Voting System Created Using Laravel PHP Framework
 
-This system is still in work progress.
+This system is still a work in progress.
 
 ## Laravel PHP Framework
 
