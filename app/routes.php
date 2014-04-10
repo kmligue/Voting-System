@@ -11,6 +11,7 @@
 |
 */
 
+Route::resource('login', 'LoginController');
+Route::resource('logout', 'LogoutController');
 Route::resource('dashboard', 'DashboardController');
 Route::resource('president', 'PresidentController');
-Route::resource('login', 'LoginController');

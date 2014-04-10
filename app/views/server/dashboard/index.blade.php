@@ -1,17 +1,5 @@
-@extends('layout.main')
+@extends('layout.menu')
 
-@section('css')
-	{{ HTML::style('assets/css/menu.css') }}
-@stop
+@section('body')
 
-@section('content')
-	@include('layout.menu')
-@stop
-
-@section('script')
-	{{ HTML::script('assets/js/menu.js') }}
-
-	<script type="text/javascript">
-		var menu = new cbpHorizontalSlideOutMenu( document.getElementById( 'cbp-hsmenu-wrapper' ) );
-	</script>
 @stop

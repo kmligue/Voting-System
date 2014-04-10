@@ -1,10 +1,11 @@
 <?php
 
-class LoginController extends \BaseController {
+class LogoutController extends \BaseController {
 
 	public function __construct() {
 
-		$this->beforeFilter('guest');
+		// perform auth check
+		$this->beforeFilter('auth');
 
 	}
 
@@ -15,7 +16,9 @@ class LoginController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('server.login.index');
+		Auth::logout();
+
+		return Redirect::to('login')->with('logout', 'Successfully logged out!');
 	}
 
 	/**
@@ -36,42 +39,6 @@ class LoginController extends \BaseController {
 	public function store()
 	{
 		//
-		$credentials = array(
-			'username' => Input::get('username'),
-			'password' => Input::get('password')
-		);
-
-		$rules = array(
-			'username' => 'required',
-			'password' => 'required'
-		);
-
-		$validator = Validator::make($credentials, $rules);
-
-		if(!$validator->fails()) {
-
-			if(Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')))) {
-
-				if(Input::get('route')) {
-					return Redirect::to(Input::get('route'));
-				}
-				else {
-					return Redirect::to('dashboard');
-				}
-
-			}
-			else {
-
-				return Redirect::to('login')->withInput(Input::except('password'))->with('error', 'Invalid username and/or password.');
-
-			}
-
-		}
-		else {
-
-			return Redirect::to('login')->withInput(Input::except('password'))->withErrors($validator);
-
-		}
 	}
 
 	/**

@@ -1,17 +1,26 @@
+@extends('layout.main')
+
+@section('css')
+    {{ HTML::style('assets/css/menu.css') }}
+@stop
+
+@section('content')
+
 <nav class="cbp-hsmenu-wrapper" id="cbp-hsmenu-wrapper">
     <div class="cbp-hsinner">
+        <div class="left hide-for-small-only hide-for-medium-only logo"><h2><a href="/dashboard">Voting System</h2></a></div>
         <ul class="cbp-hsmenu">
             <li>
                 <a href="#">File</a>
                 <ul class="cbp-hssubmenu">
-                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img01" /><span>Add President</span></a></li>
+                    <li><a href="/president/create"><img src="/assets/images/avatar.svg" alt="img01" /><span>Add President</span></a></li>
                     <li><a href="#"><img src="/assets/images/avatar.svg" alt="img02"/><span>Add Vice President</span></a></li>
                     <li><a href="#"><img src="/assets/images/avatar.svg" alt="img03"/><span>Add Treasurer</span></a></li>
                     <li><a href="#"><img src="/assets/images/avatar.svg" alt="img04"/><span>Add Secretary</span></a></li>
                     <li><a href="#"><img src="/assets/images/avatar.svg" alt="img05"/><span>Add Representative</span></a></li>
                     <li><a href="#"><img src="/assets/images/avatar.svg" alt="img06"/><span>Add User</span></a></li>
                     <li><a href="#"><img src="/assets/images/lock.png" alt="img06"/><span>Generate Password</span></a></li>
-                    <li><a href="#"><img src="/assets/images/signout.png" alt="img06"/><span>Signout</span></a></li>
+                    <li><a href="/logout"><img src="/assets/images/signout.png" alt="img06"/><span>Signout</span></a></li>
                 </ul>
             </li>
             <li>
@@ -43,3 +52,15 @@
         </ul>
     </div>
 </nav>
+
+@yield('body')
+
+@stop
+
+@section('script')
+    {{ HTML::script('assets/js/menu.js') }}
+
+    <script type="text/javascript">
+        var menu = new cbpHorizontalSlideOutMenu( document.getElementById( 'cbp-hsmenu-wrapper' ) );
+    </script>
+@stop
