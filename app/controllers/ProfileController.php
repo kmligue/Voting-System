@@ -1,10 +1,11 @@
 <?php
 
-class LoginController extends \BaseController {
+class ProfileController extends \BaseController {
 
 	public function __construct() {
 
-		$this->beforeFilter('guest');
+		// perform auth check
+		$this->beforeFilter('auth');
 
 	}
 
@@ -15,7 +16,9 @@ class LoginController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('server.login.index');
+		$usertypes = UserType::all();
+
+		return View::make('server.profile.index')->with('usertypes', $usertypes);
 	}
 
 	/**
@@ -25,7 +28,8 @@ class LoginController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		// return error page because method is not needed
+		return Response::view('errors.403', array(), 403);
 	}
 
 	/**
@@ -36,42 +40,6 @@ class LoginController extends \BaseController {
 	public function store()
 	{
 		//
-		$credentials = array(
-			'username' => Input::get('username'),
-			'password' => Input::get('password')
-		);
-
-		$rules = array(
-			'username' => 'required',
-			'password' => 'required'
-		);
-
-		$validator = Validator::make($credentials, $rules);
-
-		if(!$validator->fails()) {
-
-			if(Auth::attempt(array('username' => Input::get('username'), 'password' => Input::get('password')))) {
-
-				if(Input::get('route')) {
-					return Redirect::to(Input::get('route'));
-				}
-				else {
-					return Redirect::to('dashboard');
-				}
-
-			}
-			else {
-
-				return Redirect::to('login')->withInput(Input::except('password'))->with('error', 'Invalid credentials.');
-
-			}
-
-		}
-		else {
-
-			return Redirect::to('login')->withInput(Input::except('password'))->withErrors($validator);
-
-		}
 	}
 
 	/**
@@ -93,7 +61,8 @@ class LoginController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		// return error page because method is not needed
+		return Response::view('errors.403', array(), 403);
 	}
 
 	/**
@@ -104,7 +73,12 @@ class LoginController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$credentials = Input::all();
+		unset($credentials['_method']);
+		unset($credentials['_token']);
+		
+		User::updateCredentials($id, $credentials);
+		
 	}
 
 	/**

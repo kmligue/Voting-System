@@ -12,6 +12,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'users';
 
+	protected $fillable = array('fname', 'mname', 'lname', 'usertypeid', 'username', 'password');
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
@@ -47,6 +49,24 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function getReminderEmail()
 	{
 		return $this->email;
+	}
+
+	public static function updateCredentials($id, $credentials) {
+
+		$user = User::findOrFail($id);
+
+		foreach ($credentials as $key => $value) {
+			if($key == 'password')
+				$user->$key = Hash::make($value);
+			else
+				$user->$key = $value;
+		}
+
+		$user->save();
+
+		if($user) echo 'updated!';
+		else echo 'failed!';
+
 	}
 
 }

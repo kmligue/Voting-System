@@ -80,7 +80,8 @@ body {
 }
 
 .field-wrapper {
-	margin-top: 150px;
+	margin-top: 100px;
+	margin-bottom: 100px;
 	background: #2C3E50;
 }
 
@@ -90,12 +91,15 @@ body {
 	margin-bottom: 10px;
 }
 
-.field-wrapper input {
+.field-wrapper input[type="text"],
+.field-wrapper input[type="password"],
+.field-wrapper select {
 	font-size: 20px;
 }
 
 .field-wrapper button,
-.field-wrapper a {
+.field-wrapper a,
+.field-wrapper input[type="submit"] {
 	margin: 30px 10px;
 }
 
@@ -104,12 +108,17 @@ body {
 	text-align: center;
 }
 
-.field-wrapper div:first-child {
+.field-wrapper > div:first-child {
 	background: #22313F;
 }
 
-.field-wrapper div:last-child {
+.field-wrapper > div:last-child {
 	padding-top: 30px;
+}
+
+.field-wrapper span {
+	margin-top: 100px;
+	display: block;
 }
 
 .field-error {
@@ -120,6 +129,16 @@ body {
 .login-body span h5 {
 	color: #F4D03F;
 	text-align: center;
+}
+
+.p-warning,
+.r-warning {
+	position: relative;
+	bottom: 45px;
+	left: 585px;
+	color: #D91E18;
+	font-size: 25px;
+	visibility: hidden;
 }
 
 @media screen and (max-width: 51.4375em) {

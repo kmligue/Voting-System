@@ -13,13 +13,14 @@
             <li>
                 <a href="#">File</a>
                 <ul class="cbp-hssubmenu">
-                    <li><a href="/president/create"><img src="/assets/images/avatar.svg" alt="img01" /><span>Add President</span></a></li>
-                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img02"/><span>Add Vice President</span></a></li>
-                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img03"/><span>Add Treasurer</span></a></li>
-                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img04"/><span>Add Secretary</span></a></li>
-                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img05"/><span>Add Representative</span></a></li>
-                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img06"/><span>Add User</span></a></li>
+                    <li><a href="/president/create"><img src="/assets/images/avatar.svg" alt="img01" /><span>President</span></a></li>
+                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img02"/><span>Vice President</span></a></li>
+                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img03"/><span>Treasurer</span></a></li>
+                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img04"/><span>Secretary</span></a></li>
+                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img05"/><span>Representative</span></a></li>
+                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img06"/><span>User</span></a></li>
                     <li><a href="#"><img src="/assets/images/lock.png" alt="img06"/><span>Generate Password</span></a></li>
+                    <li><a href="/profile"><img src="/assets/images/avatar.svg" alt="img06"/><span>Profile</span></a></li>
                     <li><a href="/logout"><img src="/assets/images/signout.png" alt="img06"/><span>Signout</span></a></li>
                 </ul>
             </li>

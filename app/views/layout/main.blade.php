@@ -7,6 +7,7 @@
 		<title>Voting System</title>
 		{{ HTML::style('assets/css/normalize.css') }}
 		{{ HTML::style('assets/css/foundation.min.css') }}
+		{{ HTML::style('assets/css/font-awesome.css') }}
 
 		@yield('css')
 		
