@@ -13,7 +13,8 @@ class DatabaseSeeder extends Seeder {
 
 		//$this->call('UserTypeTableSeeder');
 		//$this->call('UserTableSeeder');
-		$this->call('CourseTableSeeder');
+		//$this->call('CourseTableSeeder');
+		$this->call('StudentTableSeeder');
 	}
 
 }
@@ -88,4 +89,25 @@ class CourseTableSeeder extends Seeder {
 
 	}
 
+}
+
+class StudentTableSeeder extends Seeder {
+
+	public function run() {
+		DB::table('students')->delete();
+
+		$faker = new Faker\Generator();
+		$faker->addProvider(new Faker\Provider\Student($faker));
+
+		for($i = 0; $i < 50; $i++) {
+			Student::create(
+				array(
+					'fname' => $faker->firstName,
+					'mname' => $faker->middleName,
+					'lname' => $faker->lastName,
+					'courseid' => $faker->courseId
+				)
+			);
+		}
+	}
 }
