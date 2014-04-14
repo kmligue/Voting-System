@@ -116,16 +116,12 @@ body {
 	padding-top: 30px;
 }
 
-.field-wrapper span {
-	margin-top: 100px;
-	display: block;
-}
-
 .field-error {
 	margin-top: 10px;
 }
 
 .field-error h5,
+.field-wrapper h5,
 .login-body span h5 {
 	color: #F4D03F;
 	text-align: center;

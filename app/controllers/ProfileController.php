@@ -76,9 +76,13 @@ class ProfileController extends \BaseController {
 		$credentials = Input::all();
 		unset($credentials['_method']);
 		unset($credentials['_token']);
-		
-		User::updateCredentials($id, $credentials);
-		
+
+		if(Input::has('password'))  {
+			return User::updatePassword($id, $credentials);
+		}
+		else {
+			return User::updateCredentials($id, $credentials);
+		}
 	}
 
 	/**

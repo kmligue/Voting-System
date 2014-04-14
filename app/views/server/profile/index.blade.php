@@ -8,18 +8,25 @@
 		</div>
 
 		<div class="large-12 medium-12 columns">
+			<span>
+				<h5>{{ Session::get('msg-profile') }}</h5>
+				<h5>{{ $errors->first('fname') }}</h5>
+				<h5>{{ $errors->first('lname') }}</h5>
+				<h5>{{ $errors->first('usertypeid') }}</h5>
+				<h5>{{ $errors->first('username') }}</h5>
+			</span>
 			{{ Form::open(array('url' => 'profile/' . Auth::user()->id, 'method' => 'put', 'class' => 'form-profile')) }}
 				<div class="large-4 medium-4 columns">
 					{{ Form::label('fname', 'First Name') }}
-					{{ Form::text('fname', Auth::user()->fname) }}
+					{{ Form::text('fname', ucwords(Auth::user()->fname)) }}
 				</div>
 				<div class="large-4 medium-4 columns">
 					{{ Form::label('mname', 'Middle Name') }}
-					{{ Form::text('mname', Auth::user()->mname) }}
+					{{ Form::text('mname', ucwords(Auth::user()->mname)) }}
 				</div>
 				<div class="large-4 medium-4 columns">
 					{{ Form::label('lname', 'Last Name') }}
-					{{ Form::text('lname', Auth::user()->lname) }}
+					{{ Form::text('lname', ucwords(Auth::user()->lname)) }}
 				</div>
 				<div class="large-8 medium-8 columns">
 					{{ Form::label('usertypeid', 'User Type') }}
@@ -50,7 +57,13 @@
 		</div>
 
 		<div class="large-12 medium-12 columns">
-			{{ Form::open(array('url' => 'profile/' . Auth::user()->id, 'method' => 'put')) }}
+			<span>
+				<h5>{{ Session::get('msg-cpass') }}</h5>
+				<h5>{{ $errors->first('password') }}</h5>
+				<h5>{{ $errors->first('retype') }}</h5>
+			</span>
+
+			{{ Form::open(array('url' => 'profile/' . Auth::user()->id, 'method' => 'put', 'class' => 'form-cpass')) }}
 				<div class="large-8 medium-8 columns">
 					{{ Form::label('password', 'Password') }}
 					{{ Form::password('password') }}
@@ -140,8 +153,24 @@
 				})
 			})
 
+			// enable update button when cpass form is populated
+			$('.form-cpass').find('input[name="password"], input[name="retype"]').each(function() {
+				$(this).on('keyup', function() {
+					if(password.val() != '' && retype.val() != '') {
+						$('.form-cpass input[type="submit"]').removeAttr('disabled');
+					}
+					else {
+						$('.form-cpass input[type="submit"]').attr('disabled', 'true');
+					}
+				})
+			})
+
 			$('.form-profile').on('submit', function() {
 				$('.form-profile input[type="submit"]').attr('disabled', 'true');
+			})
+
+			$('.form-cpass').on('submit', function() {
+				$('.form-cpass input[type="submit"]').attr('disabled', 'true');
 			})
 		})(jQuery)
 
