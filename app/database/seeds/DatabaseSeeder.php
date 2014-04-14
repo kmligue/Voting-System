@@ -12,7 +12,8 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		//$this->call('UserTypeTableSeeder');
-		$this->call('UserTableSeeder');
+		//$this->call('UserTableSeeder');
+		$this->call('CourseTableSeeder');
 	}
 
 }
@@ -57,6 +58,34 @@ class UserTableSeeder extends Seeder {
 		);
 
 		DB::table('users')->insert($users);
+	}
+
+}
+
+class CourseTableSeeder extends Seeder {
+
+	public function run() {
+		DB::table('courses')->delete();
+
+		$courses = array(
+			array(
+				'name' => 'BSIT',
+				'description' => 'Bachelor in Science in Information Technology',
+				'representative' => 0,
+				'created_at' => new DateTime,
+				'updated_at' => new DateTime
+			),
+			array(
+				'name' => 'BSHRM',
+				'description' => 'Bachelor in Science in Hotel and Restaurant Management',
+				'representative' => 0,
+				'created_at' => new DateTime,
+				'updated_at' => new DateTime
+			)
+		);
+
+		DB::table('courses')->insert($courses);
+
 	}
 
 }
