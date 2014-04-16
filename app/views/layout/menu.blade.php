@@ -13,7 +13,7 @@
             <li>
                 <a href="#">File</a>
                 <ul class="cbp-hssubmenu">
-                    <li><a href="/president/create"><img src="/assets/images/avatar.svg" alt="img01" /><span>Course</span></a></li>
+                    <li><a href="#"><img src="/assets/images/avatar.svg" alt="img01" /><span>Course</span></a></li>
                     <li><a href="#"><img src="/assets/images/avatar.svg" alt="img02"/><span>Student</span></a></li>
                     <li><a href="#"><img src="/assets/images/avatar.svg" alt="img03"/><span>Position</span></a></li>
                     <li><a href="#"><img src="/assets/images/avatar.svg" alt="img04"/><span>Candidate</span></a></li>

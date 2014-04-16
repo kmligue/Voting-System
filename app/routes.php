@@ -16,3 +16,4 @@ Route::resource('logout', 'LogoutController');
 Route::resource('dashboard', 'DashboardController');
 Route::resource('profile', 'ProfileController');
 Route::resource('president', 'PresidentController');
+Route::resource('user', 'UserController');
