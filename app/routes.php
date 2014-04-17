@@ -17,3 +17,4 @@ Route::resource('dashboard', 'DashboardController');
 Route::resource('profile', 'ProfileController');
 Route::resource('president', 'PresidentController');
 Route::resource('user', 'UserController');
+Route::resource('course', 'CourseController');
