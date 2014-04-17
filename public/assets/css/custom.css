@@ -10,143 +10,66 @@
 }
 
 body {
-	background: #36D7B7;
+	background: #272a33;
 	font-family: Lato;
 }
 
-.logo {
-	margin-left: 25px;
-}
-
-.logo h2 a {
-	color: white;
-}
-
 .login-container {
-	margin: 220px 0 0 0;
-	padding: 0;
+	background: whitesmoke;
+	margin-top: 10%;
+}
+
+.login-container input {
+	font-size: 16px;
+	width: 100%;
 }
 
 .login-header {
 	text-align: center;
-	background: #019875;
-	padding: 25px;
+	margin-top: 20px;
 }
 
-.login-container h1,
-.login-container label {
-	color: white;
-}
-
-.login-body {
-	background: #03A678;
-	margin-top: -10px;
-	padding: 40px;
-}
-
-.login-body label {
-	font-size: 25px;
-}
-
-.login-body input {
-	font-size: 20px;
-}
-
-.cbp-hsinner {
-	background: #019875;
-}
-
-.cbp-hsmenu {
-	text-align: center;
-}
-
-.cbp-hsmenu > li.cbp-hsitem-open > a:after {
-	border-top-color: #019875;
-}
-
-.no-touch .cbp-hsmenu > li > a:hover,
-.no-touch .cbp-hsmenu > li > a:focus,
-.cbp-hsmenu > li.cbp-hsitem-open > a {
-	color: #66CC99;
-}
-
-.cbp-hssubmenu {
-	background: #F7F7F7;
-}
-
-.cbp-hssubmenu li a img {
-	width: 160px;
-	height: 160px;
-}
-
-.field-wrapper {
-	margin-top: 100px;
-	margin-bottom: 100px;
-	background: #2C3E50;
-}
-
-.field-wrapper label {
+.login-header h1 {
 	font-size: 30px;
-	color: white;
-	margin-bottom: 10px;
 }
 
-.field-wrapper input[type="text"],
-.field-wrapper input[type="password"],
-.field-wrapper select {
-	font-size: 20px;
+.top-bar {
+	height: 88px;
+	background: #1abc9c;
 }
 
-.field-wrapper button,
-.field-wrapper a,
-.field-wrapper input[type="submit"] {
-	margin: 30px 10px;
+.title-area {
+	height: 100%;
+	padding: 23px;
 }
 
-.field-wrapper h1 {
-	color: white;
+.title-area a {
+	font-size: 26px;
+	font-family: Lato;
+}
+
+.top-menu {
+	font-size: 30px;
+}
+
+.top-menu li {
+	line-height: 88px;
 	text-align: center;
 }
 
-.field-wrapper > div:first-child {
-	background: #22313F;
+.top-menu li a {
+	width: 90px;
+	display: block;
 }
 
-.field-wrapper > div:last-child {
-	padding-top: 30px;
+.top-menu li i {
+	color: #148f77;
 }
 
-.field-error {
-	margin-top: 10px;
+.top-menu li:hover {
+	background: #1bc5a3;
 }
 
-.field-error h5,
-.field-wrapper h5,
-.login-body span h5 {
-	color: #F4D03F;
-	text-align: center;
-}
-
-.p-warning,
-.r-warning {
-	position: relative;
-	bottom: 45px;
-	left: 585px;
-	color: #D91E18;
-	font-size: 25px;
-	visibility: hidden;
-}
-
-@media screen and (max-width: 51.4375em) {
-	.cbp-hssubmenu li a img {
-		width: 100px;
-		height: 100px;
-	}
-}
-
-@media screen and (max-width: 25em) {
-	.cbp-hssubmenu li a img {
-		width: 50px;
-		height: 50px;
-	}
+.top-menu li:hover i {
+	color: white;
 }
