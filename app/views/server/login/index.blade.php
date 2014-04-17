@@ -1,24 +1,48 @@
 @extends('layout.main')
 
+@section('css')
+	{{ HTML::style('assets/css/vendor/bootstrap-checkbox.css') }}
+@stop
+
 @section('content')
-	<div class="large-4 medium-4 large-offset-4 medium-offset-4 columns login-container">
-		<div class="login-header">
-			<h1>cPanel</h1>
-		</div>
-		<hr />
-		<div class="login-body large-12 columns">
-			<span>
-				{{ Session::get('error') }}
-				{{ Session::get('logout') }}
-				{{ $errors->first('username') }}
-				{{ $errors->first('password') }}
-			</span>
-			{{ Form::open(array('route' => 'login.store')) }}
-			{{ Form::hidden('route', Session::get('route')) }}
-			{{ Form::text('username', '', array('placeholder' => 'Username', 'autofocus' => '')) }}
-			{{ Form::password('password', array('placeholder' => 'Password')) }}
-			{{ Form::submit('Login', array('class' => 'button success right')) }}
-			{{ Form::close() }}
+
+	<div id="wrap">
+		<div class="row">
+			<div id="content" class="col-md-12 full-page login">
+				
+				<div class="inside-block">
+					<h1><strong>c</strong>Panel</h1>
+					<h5>Admin Login</h5>
+
+					{{ Form::open(array('route' => 'login.store', 'id' => 'form-signin', 'class' => 'form-signin')) }}
+					<section>
+
+						<?php
+
+							if(Session::has('error')) {
+								echo '<p><i class="fa fa-warning"></i> ' . Session::get('error') . '</p>';
+							}
+							else if($errors->has('username')) {
+								echo '<p>' . $errors->first('username') . '</p>';
+							}
+
+						?>
+
+						<div class="input-group">
+							{{ Form::text('username', '', array('placeholder' => 'Username', 'autofocus' => '', 'class' => 'form-control')) }}
+							<div class="input-group-addon"><i class="fa fa-user"></i></div>
+						</div>
+						<div class="input-group">
+							{{ Form::password('password', array('placeholder' => 'Password', 'class' => 'form-control')) }}
+							<div class="input-group-addon"><i class="fa fa-key"></i></div>
+						</div>
+					</section>
+					<section class="log-in">
+						{{ Form::submit('Log In', array('class' => 'btn btn-greensea')) }}
+					</section>
+					{{ Form::close() }}
+				</div>
+			</div>
 		</div>
 	</div>
 @stop
