@@ -59,7 +59,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			'fname' => 'required',
 			'lname' => 'required',
 			'usertypeid' => 'required',
-			'username' => 'required|min:6'
+			'username' => 'required|min:6|unique:users,username'
 		);
 
 		$validator = Validator::make($credentials, $rules);
@@ -74,8 +74,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		$user->save();
 
-		if($user) return Redirect::to('profile')->with('msg-profile', 'User profile successfully updated!');
-		else return Redirect::to('profile')->with('msg-profile', 'Error saving user profile');
+		if($user) return Redirect::to('profile')->with('msg-profile-updated', 'User profile successfully updated!');
+		else return Redirect::to('profile')->with('msg-profile-error', 'Error saving user profile');
 	}
 
 	public static function updatePassword($id, $credentials) {
@@ -83,13 +83,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user = User::findOrFail($id);
 
 		$rules = array(
-			'password' => 'required|min:6',
-			'retype' => 'required|min:6'
+			'password' => 'required|min:6|confirmed',
+			'password_confirmation' => 'required|min:6|same:password'
 		);
 
 		$validator = Validator::make($credentials, $rules);
 
-		if($validator->fails()) return Redirect::to('profile')->withErrors($validator)->withInput(Input::except('retype'));
+		if($validator->fails()) return Redirect::to('profile')->withErrors($validator)->withInput(Input::except('password_confirmation'));
 
 		foreach ($credentials as $key => $value) {
 			if($key == 'password') $user->$key = Hash::make($value);
@@ -97,8 +97,39 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		$user->save();
 
-		if($user) return Redirect::to('profile')->with('msg-cpass', 'Password successfully updated!');
-		else return Redirect::to('profile')->with('msg-cpass', 'Error saving password.');
+		if($user) return Redirect::to('profile')->with('msg-cpass-updated', 'Password successfully updated!');
+		else return Redirect::to('profile')->with('msg-cpass-error', 'Error saving password.');
+	}
+
+	public static function updateProfileImage($id, $credentials) {
+		$user = User::findOrFail($id);
+
+		$rules = array(
+			'image' => 'image'
+		);
+
+		$data = array(
+			'image' => $credentials
+		);
+
+		$validator = Validator::make($data, $rules);
+
+		if($validator->fails()) return Redirect::to('profile')->withErrors($validator)->withInput(Input::only('image'));
+
+		$destination = public_path() . '/assets/images/';
+		
+		$uploaded = Input::file('image')->move($destination, Input::file('image')->getClientOriginalName());
+
+		if($uploaded) {
+			$user->image = '/assets/images/' . Input::file('image')->getClientOriginalName();
+
+			$user->save();
+
+			return Redirect::to('profile')->with('upload-updated', 'Successfully updated.');
+		}
+		else {
+			return Redirect::to('profile')->with('upload-error', 'Error uploading file.');
+		}
 	}
 
 }

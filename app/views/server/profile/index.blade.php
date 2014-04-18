@@ -22,16 +22,37 @@
 					</div>
 
 					<div class="tile-body">
-						<form class="form-horizontal" role="form" parsley-validate>
+
+						<?php
+							if($errors->first('image')) {
+								echo '<div class="alert alert-red">' .
+									$errors->first('image') .
+									'</div>';
+							}
+
+							if(Session::has('upload-error')) {
+								echo '<div class="alert alert-red">' .
+									Session::get('upload-error') .
+									'</div>';
+							}
+
+							if(Session::has('upload-updated')) {
+								echo '<div class="notification notification-success">' .
+								'<h4>' . Session::get('upload-updated') . '</h4>' .
+								'</div>';
+							}
+						?>
+
+						{{ Form::open(array('url' => 'profile/' . Auth::user()->id, 'method' => 'put', 'class' => 'form-horizontal', 'role' => 'form', 'parsley-validate' => '', 'enctype' => 'multipart/form-data')) }}
 							<img src="{{ Auth::user()->image }}" class="profile-pic img-responsive img-circle" alt>
 
 							<div class="form-group">
-								<label for="colorpicker-rgb" class="col-sm-4 control-label">Upload</label>
+								<label for="colorpicker-rgb" class="col-sm-4 control-label">Upload *</label>
 								<div class="col-sm-8">
 									<div class="input-group">
 										<span class="input-group-btn">
 											<span class="btn btn-primary btn-file">
-												<i class="fa fa-upload"></i><input type="file">
+												<i class="fa fa-upload"></i><input type="file" name="image">
 											</span>
 										</span>
 										<input type="text" class="form-control" readonly="">
@@ -45,7 +66,7 @@
 									<button type="reset" class="btn btn-default">Reset</button>
 								</div>
 							</div>
-						</form>
+						{{ Form::close() }}
 					</div>
 				</section>
 			</div>
@@ -62,7 +83,52 @@
 					</div>
 
 					<div class="tile-body">
-						<form class="form-horizontal" role="form" parsley-validate id="basicvalidation">
+
+					<?php
+						if(Session::has('msg-profile-error')) {
+							echo '<div class="alert alert-red">' .
+								Session::get('msg-profile-error') .
+								'</div>';
+						}
+
+						if($errors->first('fname')) {
+							echo '<div class="alert alert-red">' .
+								$errors->first('fname') .
+								'</div>';
+						}
+
+						if($errors->first('mname')) {
+							echo '<div class="alert alert-red">' .
+								$errors->first('mname') .
+								'</div>';
+						}
+
+						if($errors->first('lname')) {
+							echo '<div class="alert alert-red">' .
+								$errors->first('lname') .
+								'</div>';
+						}
+
+						if($errors->first('usertypeid')) {
+							echo '<div class="alert alert-red">' .
+								$errors->first('usertypeid') .
+								'</div>';
+						}
+
+						if($errors->first('username')) {
+							echo '<div class="alert alert-red">' .
+								$errors->first('username') .
+								'</div>';
+						}
+
+						if(Session::has('msg-profile-updated')) {
+							echo '<div class="notification notification-success">' .
+								'<h4>' . Session::get('msg-profile-updated') . '</h4>' .
+								'</div>';
+						}
+					?>
+
+						{{ Form::open(array('url' => '/profile/' . Auth::user()->id, 'method' => 'put', 'class' => 'form-horizontal', 'role' => 'form', 'parsley-validate' => '', 'id' => 'basicvalidation')) }}
 							<div class="form-group">
 								<label for="firstname" class="col-sm-4 control-label">First Name *</label>
 								<div class="col-sm-8">
@@ -86,11 +152,11 @@
 
 							<div class="form-group">
 								<label for="usertype" class="col-sm-4 control-label">User Type *</label>
-								<div class="col-sm-8">
-									<select name="usertypeid" class="chosen-select chosen-transparent form-control" id="usertype" parsley-trigger="change" parsley-required="true">
+								<div class="col-sm-8" id="selectbox">
+									<select name="usertypeid" class="chosen-select chosen-transparent form-control" id="usertype" parsley-trigger="change" parsley-required="true" parsley-error-container="#selectbox">
 										<option value="">Please choose</option>
 										@foreach($usertypes as $usertype)
-											<option value="{{ $usertype->id }}">{{ ucwords($usertype->name) }}</option>
+											<option value="{{ $usertype->id }}" <?php if(Auth::user()->usertypeid == $usertype->id) echo 'selected'; ?>>{{ ucwords($usertype->name) }}</option>
 										@endforeach
 									</select>
 								</div>
@@ -99,7 +165,7 @@
 							<div class="form-group">
 								<label for="username" class="col-sm-4 control-label">Username *</label>
 								<div class="col-sm-8">
-									<input type="text" name="username" class="form-control" id="username" parsley-trigger="change" parsley-required="true" value="{{ Auth::user()->username }}">
+									<input type="text" name="username" class="form-control" id="username" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" value="{{ Auth::user()->username }}">
 								</div>
 							</div>
 
@@ -109,7 +175,7 @@
 									<button type="reset" class="btn btn-default">Reset</button>
 								</div>
 							</div>
-						</form>
+						{{ Form::close() }}
 					</div>
 				</section>
 			</div>
@@ -121,7 +187,28 @@
 					</div>
 
 					<div class="tile-body">
-						<form class="form-horizontal" role="form" parsley-validate id="basicvalidation">
+
+						<?php
+							if(Session::has('msg-cpass-error')) {
+								echo '<div class="alert alert-red">' .
+									Session::get('msg-cpass-error') .
+									'</div>';
+							}
+
+							if($errors->first('password')) {
+								echo '<div class="alert alert-red">' .
+									$errors->first('password') .
+									'</div>';
+							}
+
+							if(Session::has('msg-cpass-updated')) {
+								echo '<div class="notification notification-success">' .
+									'<h4>' . Session::get('msg-cpass-updated') . '</h4>' .
+									'</div>';
+							}
+						?>
+
+						{{ Form::open(array('url' => '/profile/' . Auth::user()->id, 'method' => 'put', 'class' => 'form-horizontal', 'role' => 'form', 'parsley-validate' => '', 'id' => 'basicvalidation')) }}
 							<div class="form-group">
 								<label for="password" class="col-sm-4 control-label">Password *</label>
 								<div class="col-sm-8">
@@ -132,7 +219,7 @@
 							<div class="form-group">
 								<label for="retype-password" class="col-sm-4 control-label">Re-Type Password *</label>
 								<div class="col-sm-8">
-									<input type="password" name="retype-password" class="form-control" id="retype-password" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" parsley-equalto="#password">
+									<input type="password" name="password_confirmation" class="form-control" id="retype-password" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" parsley-equalto="#password">
 								</div>
 							</div>
 
@@ -142,7 +229,7 @@
 									<button type="reset" class="btn btn-default">Reset</button>
 								</div>
 							</div>
-						</form>
+						{{ Form::close() }}
 					</div>
 				</section>
 			</div>
@@ -155,6 +242,18 @@
 	<script>
 
 		$(function() {
+			$('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+    			var input = $(this).parents('.input-group').find(':text'),
+    			log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+    			if(input.length) {
+    				input.val(log);
+    			}
+    			else {
+    				if(log) alert(log);
+    			}
+    		});
+
 			$(".chosen-select").chosen({disable_search_threshold: 10});
 		});
 

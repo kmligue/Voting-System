@@ -81,8 +81,12 @@ class ProfileController extends \BaseController {
 	{
 
 		if(Input::has('password'))  {
-			$credentials = Input::only('password', 'retype');
+			$credentials = Input::only('password', 'password_confirmation');
 			return User::updatePassword($id, $credentials);
+		}
+		else if(Input::hasFile('image')) {
+			$credentials = Input::file('image');
+			return User::updateProfileImage($id, $credentials);
 		}
 		else {
 			$credentials = Input::only('fname', 'mname', 'lname', 'usertypeid', 'username');
