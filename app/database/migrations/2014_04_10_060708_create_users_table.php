@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration {
 					->onDelete('restrict');
 			$table->string('username');
 			$table->string('password');
+			$table->string('image');
 			$table->timestamps();
 		});
 	}

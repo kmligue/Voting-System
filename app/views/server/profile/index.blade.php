@@ -1,178 +1,162 @@
 @extends('layout.menu')
 
 @section('body')
-	<div class="row field-wrapper">
-
-		<div class="large-12 medium-12 columns">
-			<h1>User Profile</h1>
-		</div>
-
-		<div class="large-12 medium-12 columns">
-			<span>
-				<h5>{{ Session::get('msg-profile') }}</h5>
-				<h5>{{ $errors->first('fname') }}</h5>
-				<h5>{{ $errors->first('lname') }}</h5>
-				<h5>{{ $errors->first('usertypeid') }}</h5>
-				<h5>{{ $errors->first('username') }}</h5>
-			</span>
-			{{ Form::open(array('url' => 'profile/' . Auth::user()->id, 'method' => 'put', 'class' => 'form-profile')) }}
-				<div class="large-4 medium-4 columns">
-					{{ Form::label('fname', 'First Name') }}
-					{{ Form::text('fname', ucwords(Auth::user()->fname)) }}
-				</div>
-				<div class="large-4 medium-4 columns">
-					{{ Form::label('mname', 'Middle Name') }}
-					{{ Form::text('mname', ucwords(Auth::user()->mname)) }}
-				</div>
-				<div class="large-4 medium-4 columns">
-					{{ Form::label('lname', 'Last Name') }}
-					{{ Form::text('lname', ucwords(Auth::user()->lname)) }}
-				</div>
-				<div class="large-8 medium-8 columns">
-					{{ Form::label('usertypeid', 'User Type') }}
-
-					@foreach($usertypes as $usertype)
-						<?php $utype[$usertype->id] = ucfirst($usertype->name); ?>
-					@endforeach
-
-					{{ Form::select('usertypeid', $utype, Auth::user()->usertypeid) }}
-				</div>
-				<div class="large-8 medium-8 columns left">
-					{{ Form::label('username', 'Username') }}
-					{{ Form::text('username', Auth::user()->username) }}
-				</div>
-				<div class="large-12 medium-12 columns">
-					{{ HTML::link('dashboard', 'Cancel', array('class' => 'right button alert')) }}
-					{{ Form::submit('Update', array('class' => 'right button success', 'disabled' => 'true')) }}
-				</div>
-			{{ Form::close() }}
-		</div>
-
+	<div class="pageheader">
+		<h2>
+			<i class="fa fa-user"></i> Profile
+		</h2>
 	</div>
 
-	<div class="row field-wrapper">
+	<div class="main">
+		<div class="row">
 
-		<div class="large-12 medium-12 columns">
-			<h1>Change Password</h1>
+			<div class="col-md-12 col-lg-4">
+				<section class="tile color transparent-black">
+					<div class="tile-header">
+						<h1><strong>Profile</strong> Picture</h1>
+						<div class="controls">
+							<a href="#" class="refresh">
+								<i class="fa fa-refresh"></i>
+							</a>
+						</div>
+					</div>
+
+					<div class="tile-body">
+						<form class="form-horizontal" role="form" parsley-validate>
+							<img src="{{ Auth::user()->image }}" class="profile-pic img-responsive img-circle" alt>
+
+							<div class="form-group">
+								<label for="colorpicker-rgb" class="col-sm-4 control-label">Upload</label>
+								<div class="col-sm-8">
+									<div class="input-group">
+										<span class="input-group-btn">
+											<span class="btn btn-primary btn-file">
+												<i class="fa fa-upload"></i><input type="file">
+											</span>
+										</span>
+										<input type="text" class="form-control" readonly="">
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group form-footer">
+								<div class="col-sm-offset-5 col-sm-7 col-md-offset-5 col-md-7 col-lg-offset-4 col-lg-8">
+									<button type="submit" class="btn btn-primary">Submit</button>
+									<button type="reset" class="btn btn-default">Reset</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</section>
+			</div>
+
+			<div class="col-lg-8 col-md-12">
+				<section class="tile color transparent-black">
+					<div class="tile-header profile-basic-credentials">
+						<h1><strong>Basic</strong> Credentials</h1>
+						<div class="controls">
+							<a href="#" class="refresh">
+								<i class="fa fa-refresh"></i>
+							</a>
+						</div>
+					</div>
+
+					<div class="tile-body">
+						<form class="form-horizontal" role="form" parsley-validate id="basicvalidation">
+							<div class="form-group">
+								<label for="firstname" class="col-sm-4 control-label">First Name *</label>
+								<div class="col-sm-8">
+									<input type="text" name="fname" class="form-control" id="firstname" parsley-trigger="change" parsley-required="true" value="{{ Auth::user()->fname }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="middlename" class="col-sm-4 control-label">Middle Name</label>
+								<div class="col-sm-8">
+									<input type="text" name="mname" class="form-control" id="middlename" value="{{ Auth::user()->mname }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="lastname" class="col-sm-4 control-label">Last Name *</label>
+								<div class="col-sm-8">
+									<input type="text" name="lname" class="form-control" id="lastname" parsley-trigger="change" parsley-required="true" value="{{ Auth::user()->lname }}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="usertype" class="col-sm-4 control-label">User Type *</label>
+								<div class="col-sm-8">
+									<select name="usertypeid" class="chosen-select chosen-transparent form-control" id="usertype" parsley-trigger="change" parsley-required="true">
+										<option value="">Please choose</option>
+										@foreach($usertypes as $usertype)
+											<option value="{{ $usertype->id }}">{{ ucwords($usertype->name) }}</option>
+										@endforeach
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="username" class="col-sm-4 control-label">Username *</label>
+								<div class="col-sm-8">
+									<input type="text" name="username" class="form-control" id="username" parsley-trigger="change" parsley-required="true" value="{{ Auth::user()->username }}">
+								</div>
+							</div>
+
+							<div class="form-group form-footer">
+								<div class="col-sm-offset-5 col-sm-7">
+									<button type="submit" class="btn btn-primary">Submit</button>
+									<button type="reset" class="btn btn-default">Reset</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</section>
+			</div>
+
+			<div class="col-md-12 col-lg-8">
+				<section class="tile color transparent-black">
+					<div class="tile-header">
+						<h1><strong>Change</strong> Password</h1>
+					</div>
+
+					<div class="tile-body">
+						<form class="form-horizontal" role="form" parsley-validate id="basicvalidation">
+							<div class="form-group">
+								<label for="password" class="col-sm-4 control-label">Password *</label>
+								<div class="col-sm-8">
+									<input type="password" name="password" class="form-control" id="password" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" parsley-equalto="#retype-password">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="retype-password" class="col-sm-4 control-label">Re-Type Password *</label>
+								<div class="col-sm-8">
+									<input type="password" name="retype-password" class="form-control" id="retype-password" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" parsley-equalto="#password">
+								</div>
+							</div>
+
+							<div class="form-group form-footer">
+								<div class="col-sm-offset-5 col-sm-7">
+									<button type="submit" class="btn btn-primary">Submit</button>
+									<button type="reset" class="btn btn-default">Reset</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</section>
+			</div>
 		</div>
-
-		<div class="large-12 medium-12 columns">
-			<span>
-				<h5>{{ Session::get('msg-cpass') }}</h5>
-				<h5>{{ $errors->first('password') }}</h5>
-				<h5>{{ $errors->first('retype') }}</h5>
-			</span>
-
-			{{ Form::open(array('url' => 'profile/' . Auth::user()->id, 'method' => 'put', 'class' => 'form-cpass')) }}
-				<div class="large-8 medium-8 columns">
-					{{ Form::label('password', 'Password') }}
-					{{ Form::password('password') }}
-					<i class="fa fa-warning p-warning"></i>
-				</div>
-				<div class="large-8 medium-8 columns left">
-					{{ Form::label('retype', 'Retype New Password') }}
-					{{ Form::password('retype') }}
-					<i class="fa fa-warning r-warning"></i>
-				</div>
-				<div class="large-12 medium-12 columns">
-					{{ HTML::link('dashboard', 'Cancel', array('class' => 'right button alert')) }}
-					{{ Form::submit('Update', array('class' => 'right button success', 'disabled' => 'true')) }}
-				</div>
-			{{ Form::close() }}
-		</div>
-
 	</div>
 @stop
 
 @section('script')
-	@parent
 
-	<script type="text/javascript">
+	<script>
 
-		(function() {
-			var password = $('#password');
-			var retype = $('#retype');
-			var pwarning = $('.p-warning');
-			var rwarning = $('.r-warning');
-			var pass_warning_msg = $('.pass-warning');
-			var fname = $('input[name="fname"]');
-			var lname = $('input[name="lname"]');
-			var username = $('input[name="username"]');
-
-			password.on('keyup', function() {
-				checkPasswordEquality();
-			})
-
-			password.on('focusout', function() {
-				checkPasswordEquality();
-			});
-
-			retype.on('keyup', function() {
-				checkPasswordEquality();
-			})
-
-			retype.on('focusout', function() {
-				checkPasswordEquality();
-			});
-
-			var checkPasswordEquality = function() {
-				pwarning.css('visibility', 'hidden');
-				rwarning.css('visibility', 'hidden');
-
-				if(password.val() != '' && retype.val() != '') {
-					if(password.val() != retype.val()) {
-						pwarning.css('visibility', 'visible');
-						rwarning.css('visibility', 'visible');
-					}
-
-					if(password.val() == retype.val()) {
-						pwarning.css('visibility', 'hidden');
-						rwarning.css('visibility', 'hidden');
-					}
-				}
-
-				if(password.val() != '' && retype.val() == '') {
-					rwarning.css('visibility', 'visible');
-				}
-
-				if(password.val() == '' && retype.val() != '') {
-					pwarning.css('visibility', 'visible');
-				}
-
-			}
-
-			// enable update button when profile form is populated
-			$('.form-profile').find('input[name="fname"], input[name="mname"] input[name="lname"], input[name="username"]').each(function() {
-				$(this).on('keyup', function() {
-					if(fname.val() != '' && lname.val() != '' && username.val() != '') {
-						$('.form-profile input[type="submit"]').removeAttr('disabled');
-					}
-					else {
-						$('.form-profile input[type="submit"]').attr('disabled', 'true');
-					}
-				})
-			})
-
-			// enable update button when cpass form is populated
-			$('.form-cpass').find('input[name="password"], input[name="retype"]').each(function() {
-				$(this).on('keyup', function() {
-					if(password.val() != '' && retype.val() != '') {
-						$('.form-cpass input[type="submit"]').removeAttr('disabled');
-					}
-					else {
-						$('.form-cpass input[type="submit"]').attr('disabled', 'true');
-					}
-				})
-			})
-
-			$('.form-profile').on('submit', function() {
-				$('.form-profile input[type="submit"]').attr('disabled', 'true');
-			})
-
-			$('.form-cpass').on('submit', function() {
-				$('.form-cpass input[type="submit"]').attr('disabled', 'true');
-			})
-		})(jQuery)
+		$(function() {
+			$(".chosen-select").chosen({disable_search_threshold: 10});
+		});
 
 	</script>
 @stop

@@ -16,6 +16,12 @@ class ProfileController extends \BaseController {
 	 */
 	public function index()
 	{
+		if(Request::ajax()) {
+			$user = User::all();
+
+			return Response::json($user);
+		}
+
 		$usertypes = UserType::all();
 
 		return View::make('server.profile.index')->with('usertypes', $usertypes);

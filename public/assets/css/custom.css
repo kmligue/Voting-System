@@ -1,0 +1,11 @@
+body .navbar .navbar-header .navbar-brand {
+	background: none;
+}
+
+.tab-content > div {
+	padding: 5px 0;
+}
+
+.profile-pic {
+	margin: -7px -7px 10px -7px;
+}

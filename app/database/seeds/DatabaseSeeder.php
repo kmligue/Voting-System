@@ -11,9 +11,9 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		//$this->call('UserTypeTableSeeder');
-		//$this->call('UserTableSeeder');
-		//$this->call('CourseTableSeeder');
+		$this->call('UserTypeTableSeeder');
+		$this->call('UserTableSeeder');
+		$this->call('CourseTableSeeder');
 		$this->call('StudentTableSeeder');
 	}
 
@@ -54,6 +54,7 @@ class UserTableSeeder extends Seeder {
 			'usertypeid' => '1',
 			'username' => 'kmligue',
 			'password' => Hash::make('kmligue'),
+			'image' => 'assets/images/default.png',
 			'created_at' => new DateTime,
 			'updated_at' => new DateTime
 		);
