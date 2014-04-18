@@ -8,10 +8,8 @@ $(function() {
 		var d=$(this).parent().parent().parent();
 		b(d);
 
-		$.ajax({
-			url: '/profile',
-			type: 'get',
-			success: function(data) {
+		getAjax('/profile')
+			.success(function(data) {
 				$.each(data[0], function(key, value) {
 					if(key == 'fname') fname.val(value);
 					if(key == 'mname') mname.val(value);
@@ -20,15 +18,18 @@ $(function() {
 				});
 
 				c(d);
-			},
-			error: function() {
+			})
+			.error(function() {
 				c(d);
-			}
-		})
+			});
 
 		return false
 	});
 });
+
+function getAjax(destination) {
+	return $.ajax({ url: destination, type: 'get' });
+}
 
 function b(d) {
     $(d).block({

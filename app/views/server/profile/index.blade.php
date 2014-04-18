@@ -182,7 +182,7 @@
 
 			<div class="col-md-12 col-lg-8">
 				<section class="tile color transparent-black">
-					<div class="tile-header">
+					<div class="tile-header profile-change-password">
 						<h1><strong>Change</strong> Password</h1>
 					</div>
 
