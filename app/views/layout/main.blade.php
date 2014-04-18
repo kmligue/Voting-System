@@ -40,16 +40,6 @@
 
     <script type="text/javascript" src="assets/js/vendor/chosen/chosen.jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/parsley/parsley.min.js"></script>
-
-    <script type="text/javascript">
-    	$(document) 
-    		.on('change', '.btn-file :file', function() {
-    			var input = $(this),
-    			numFiles = input.get(0).files ? input.get(0).files.length : 1,
-    			label = input.val().replace(/\\/g, 'http://tattek.com/').replace(/.*\//, '');
-    			input.trigger('fileselect', [numFiles, label]);
-    	 });
-    </script>
     
     @yield('script')
 

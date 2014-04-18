@@ -22,6 +22,11 @@
 					</div>
 
 					<div class="tile-body">
+						<div class="alert alert-big alert-redbrown alert-dismissable fade in">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<h4><strong>Heads up!</strong></h4>
+							<p>400 x 400 image dimension is preferable.</p>
+						</div>	
 
 						<?php
 							if($errors->first('image')) {
@@ -44,18 +49,19 @@
 						?>
 
 						{{ Form::open(array('url' => 'profile/' . Auth::user()->id, 'method' => 'put', 'class' => 'form-horizontal', 'role' => 'form', 'parsley-validate' => '', 'enctype' => 'multipart/form-data')) }}
-							<img src="{{ Auth::user()->image }}" class="profile-pic img-responsive img-circle" alt>
+
+							<img src="{{ Auth::user()->image }}" class="profile-pic img-responsive img-circle" alt style="width: 426px; height: 426px;">
 
 							<div class="form-group">
-								<label for="colorpicker-rgb" class="col-sm-4 control-label">Upload *</label>
+								<label for="image" class="col-sm-4 control-label">Upload *</label>
 								<div class="col-sm-8">
 									<div class="input-group">
 										<span class="input-group-btn">
-											<span class="btn btn-primary btn-file">
-												<i class="fa fa-upload"></i><input type="file" name="image">
+											<span class="btn btn-primary btn-file" style="margin-bottom: 24px;">
+												<i class="fa fa-upload"></i><input type="file" name="image" id="image">
 											</span>
 										</span>
-										<input type="text" class="form-control" readonly="">
+										<input type="text" class="form-control" readonly="" parsley-trigger="change" parsley-required="true" parsley-validation-minlength="1">
 									</div>
 								</div>
 							</div>
@@ -91,27 +97,21 @@
 								'</div>';
 						}
 
-						if($errors->first('fname')) {
+						if($errors->first('first name')) {
 							echo '<div class="alert alert-red">' .
-								$errors->first('fname') .
+								$errors->first('first name') .
 								'</div>';
 						}
 
-						if($errors->first('mname')) {
+						if($errors->first('last name')) {
 							echo '<div class="alert alert-red">' .
-								$errors->first('mname') .
+								$errors->first('last name') .
 								'</div>';
 						}
 
-						if($errors->first('lname')) {
+						if($errors->first('user type')) {
 							echo '<div class="alert alert-red">' .
-								$errors->first('lname') .
-								'</div>';
-						}
-
-						if($errors->first('usertypeid')) {
-							echo '<div class="alert alert-red">' .
-								$errors->first('usertypeid') .
+								$errors->first('user type') .
 								'</div>';
 						}
 
@@ -240,6 +240,13 @@
 @section('script')
 
 	<script>
+		$(document) 
+    		.on('change', '.btn-file :file', function() {
+    			var input = $(this),
+    			numFiles = input.get(0).files ? input.get(0).files.length : 1,
+    			label = input.val().replace(/\\/g, 'http://tattek.com/').replace(/.*\//, '');
+    			input.trigger('fileselect', [numFiles, label]);
+    	 });
 
 		$(function() {
 			$('.btn-file :file').on('fileselect', function(event, numFiles, label) {

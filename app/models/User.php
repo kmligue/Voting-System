@@ -51,15 +51,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
-	public static function updateCredentials($id, $credentials) {
+	public static function updateCredentials($id) {
 	
 		$user = User::findOrFail($id);
 
 		$rules = array(
-			'fname' => 'required',
-			'lname' => 'required',
-			'usertypeid' => 'required',
+			'first name' => 'required',
+			'last name' => 'required',
+			'user type' => 'required',
 			'username' => 'required|min:6|unique:users,username'
+		);
+
+		$credentials = array(
+			'first name' => Input::get('fname'),
+			'last name' => Input::get('lname'),
+			'user type' => Input::get('usertypeid'),
+			'username' => Input::get('username')
 		);
 
 		$validator = Validator::make($credentials, $rules);
@@ -68,9 +75,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			return Redirect::to('profile')->withErrors($validator)->withInput();
 		}
 
-		foreach ($credentials as $key => $value) {
-			$user->$key = $value;
-		}
+		$user->fname = Input::get('fname');
+		$user->mname = Input::get('mname');
+		$user->lname = Input::get('lname');
+		$user->usertypeid = Input::get('usertypeid');
+		$user->username = Input::get('username');
 
 		$user->save();
 
@@ -78,7 +87,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		else return Redirect::to('profile')->with('msg-profile-error', 'Error saving user profile');
 	}
 
-	public static function updatePassword($id, $credentials) {
+	public static function updatePassword($id) {
 
 		$user = User::findOrFail($id);
 
@@ -87,13 +96,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			'password_confirmation' => 'required|min:6|same:password'
 		);
 
+		$credentials = array(
+			'password' => Input::get('password'),
+			'password_confirmation' => Input::get('password_confirmation')
+		);
+
 		$validator = Validator::make($credentials, $rules);
 
 		if($validator->fails()) return Redirect::to('profile')->withErrors($validator)->withInput(Input::except('password_confirmation'));
 
-		foreach ($credentials as $key => $value) {
-			if($key == 'password') $user->$key = Hash::make($value);
-		}
+		$user->password = Hash::make(Input::get('password'));
 
 		$user->save();
 
@@ -101,25 +113,25 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		else return Redirect::to('profile')->with('msg-cpass-error', 'Error saving password.');
 	}
 
-	public static function updateProfileImage($id, $credentials) {
+	public static function updateProfileImage($id) {
 		$user = User::findOrFail($id);
 
 		$rules = array(
-			'image' => 'image'
+			'image' => 'required|image'
 		);
 
-		$data = array(
-			'image' => $credentials
+		$credentials = array(
+			'image' => Input::file('image')
 		);
 
-		$validator = Validator::make($data, $rules);
+		$validator = Validator::make($credentials, $rules);
 
 		if($validator->fails()) return Redirect::to('profile')->withErrors($validator)->withInput(Input::only('image'));
 
 		$destination = public_path() . '/assets/images/';
-		
-		$uploaded = Input::file('image')->move($destination, Input::file('image')->getClientOriginalName());
 
+		$uploaded = Input::file('image')->move($destination, Input::file('image')->getClientOriginalName());
+		
 		if($uploaded) {
 			$user->image = '/assets/images/' . Input::file('image')->getClientOriginalName();
 

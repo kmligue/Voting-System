@@ -9,3 +9,7 @@ body .navbar .navbar-header .navbar-brand {
 .profile-pic {
 	margin-bottom: 10px;
 }
+
+body #content .tile.transparent-black .form-control[readonly] {
+	color: white;
+}
