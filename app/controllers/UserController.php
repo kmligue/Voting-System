@@ -2,6 +2,13 @@
 
 class UserController extends \BaseController {
 
+	public function __construct() {
+
+		// perform auth check
+		$this->beforeFilter('auth');
+
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *

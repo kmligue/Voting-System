@@ -132,21 +132,21 @@
 							<div class="form-group">
 								<label for="firstname" class="col-sm-4 control-label">First Name *</label>
 								<div class="col-sm-8">
-									<input type="text" name="fname" class="form-control" id="firstname" parsley-trigger="change" parsley-required="true" value="{{ Auth::user()->fname }}">
+									<input type="text" name="fname" class="form-control" id="firstname" parsley-trigger="change" parsley-required="true" value="{{ ucwords(Auth::user()->fname) }}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="middlename" class="col-sm-4 control-label">Middle Name</label>
 								<div class="col-sm-8">
-									<input type="text" name="mname" class="form-control" id="middlename" value="{{ Auth::user()->mname }}">
+									<input type="text" name="mname" class="form-control" id="middlename" value="{{ ucwords(Auth::user()->mname) }}">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="lastname" class="col-sm-4 control-label">Last Name *</label>
 								<div class="col-sm-8">
-									<input type="text" name="lname" class="form-control" id="lastname" parsley-trigger="change" parsley-required="true" value="{{ Auth::user()->lname }}">
+									<input type="text" name="lname" class="form-control" id="lastname" parsley-trigger="change" parsley-required="true" value="{{ ucwords(Auth::user()->lname) }}">
 								</div>
 							</div>
 

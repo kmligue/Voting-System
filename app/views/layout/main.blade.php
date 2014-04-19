@@ -62,10 +62,11 @@
 
     <script type="text/javascript" src="assets/js/vendor/chosen/chosen.jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/parsley/parsley.min.js"></script>
-    
-    @yield('script')
 
     <script src="assets/js/minimal.min.js"></script>
+
+     @yield('script')
+
     <script src="assets/js/custom.js"></script>
 	</body>
 </html>

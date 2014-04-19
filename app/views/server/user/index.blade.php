@@ -145,7 +145,7 @@
       				return;
       			}
 
-      			var aiNew = oTable02.fnAddData([ '', '', '', '', '', '<a class="edit" href="">Edit</a>', '<a class="delete" href="">Delete</a>' ]);
+      			var aiNew = oTable02.fnAddData([ '', '', '', '', '', '<a class="edit" href="#">Edit</a>', '<a class="delete" href="#">Delete</a>' ]);
       			var nRow = oTable02.fnGetNodes(aiNew[0]);
       			editRow(oTable02, nRow);
       			nEditing = nRow;
@@ -154,11 +154,12 @@
       		});
 
       		// delete row initialize
-      		$(document).on("click", "#inilineEditDataTable a.delete", function(e) {
+      		$(document).on("click", "#inlineEditDataTable a.delete", function(e) {
       			e.preventDefault();
 
       			var nRow = $(this).parents('tr')[0];
       			oTable02.fnDeleteRow(nRow);
+      			nEditing = null;
       		});
 
       		// edit row initialize
@@ -170,7 +171,13 @@
 
       			if(nEditing !== null && nEditing != nRow) {
       				// a different row is being edited - the edit should be cancelled and this row edited
-      				restoreRow(oTable02, nEditing);
+      				//restoreRow(oTable02, nEditing);
+
+      				// only allow a new row when not currently editing
+	      			if(nEditing !== null) {
+	      				return;
+	      			}
+
       				editRow(oTable02, nRow);
       				nEditing = nRow;
       			}
