@@ -12,7 +12,7 @@
 
 			<div class="col-md-12 col-lg-4">
 				<section class="tile color transparent-black">
-					<div class="tile-header">
+					<div class="tile-header profile-picture">
 						<h1><strong>Profile</strong> Picture</h1>
 						<div class="controls">
 							<a href="#" class="refresh">
@@ -61,7 +61,7 @@
 												<i class="fa fa-upload"></i><input type="file" name="image" id="image">
 											</span>
 										</span>
-										<input type="text" class="form-control" readonly="" parsley-trigger="change" parsley-required="true" parsley-validation-minlength="1">
+										<input type="text" class="form-control image" readonly="" parsley-trigger="change" parsley-required="true" parsley-validation-minlength="1">
 									</div>
 								</div>
 							</div>
@@ -182,7 +182,7 @@
 
 			<div class="col-md-12 col-lg-8">
 				<section class="tile color transparent-black">
-					<div class="tile-header profile-change-password">
+					<div class="tile-header">
 						<h1><strong>Change</strong> Password</h1>
 					</div>
 

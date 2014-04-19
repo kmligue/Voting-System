@@ -1,20 +1,5 @@
 @extends('layout.main')
 
-@section('css')
-	{{ HTML::style('assets/css/vendor/animate/animate.min.css') }}
-	{{ HTML::style('assets/js/vendor/mmenu/css/jquery.mmenu.all.css') }}
-	{{ HTML::style('assets/js/vendor/videobackground/css/jquery.videobackground.css') }}
-	{{ HTML::style('assets/css/vendor/bootstrap-checkbox.css') }}
-
-	{{ HTML::style('assets/js/vendor/rickshaw/css/rickshaw.min.css') }}
-	{{ HTML::style('assets/js/vendor/morris/css/morris.css') }}
-	{{ HTML::style('assets/js/vendor/tabdrop/css/tabdrop.css') }}
-	{{ HTML::style('assets/js/vendor/summernote/css/summernote.css') }}
-	{{ HTML::style('assets/js/vendor/summernote/css/summernote-bs3.css') }}
-	{{ HTML::style('assets/js/vendor/chosen/css/chosen.min.css') }}
-	{{ HTML::style('assets/js/vendor/chosen/css/chosen-bootstrap.css') }}
-@stop
-
 @section('content')
 <!-- Fixed navbar -->
 <div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top" role="navigation" id="navbar">
@@ -100,8 +85,8 @@
 								</a>
 							</li>
 							<li>
-								<a href="#">
-									<i class="fa fa-caret-right"></i> User
+								<a href="/user">
+									<i class="fa fa-caret-right"></i> System User
 								</a>
 							</li>
 						</ul>

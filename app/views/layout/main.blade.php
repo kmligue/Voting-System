@@ -8,6 +8,21 @@
 		<!-- Bootstrap -->
 		{{ HTML::style('assets/css/vendor/bootstrap/bootstrap.min.css') }}
 		{{ HTML::style('assets/css/font-awesome.css') }}
+		{{ HTML::style('assets/css/vendor/animate/animate.min.css') }}
+		{{ HTML::style('assets/js/vendor/mmenu/css/jquery.mmenu.all.css') }}
+		{{ HTML::style('assets/js/vendor/videobackground/css/jquery.videobackground.css') }}
+		{{ HTML::style('assets/css/vendor/bootstrap-checkbox.css') }}
+
+		{{ HTML::style('assets/js/vendor/rickshaw/css/rickshaw.min.css') }}
+		{{ HTML::style('assets/js/vendor/morris/css/morris.css') }}
+		{{ HTML::style('assets/js/vendor/tabdrop/css/tabdrop.css') }}
+		{{ HTML::style('assets/js/vendor/summernote/css/summernote.css') }}
+		{{ HTML::style('assets/js/vendor/summernote/css/summernote-bs3.css') }}
+		{{ HTML::style('assets/js/vendor/chosen/css/chosen.min.css') }}
+		{{ HTML::style('assets/js/vendor/chosen/css/chosen-bootstrap.css') }}
+		{{ HTML::style('assets/js/vendor/datatables/css/dataTables.bootstrap.css') }}
+		{{ HTML::style('assets/js/vendor/datatables/css/ColVis.css') }}
+		{{ HTML::style('assets/js/vendor/datatables/css/TableTools.css') }}
 
 		@yield('css')
 
@@ -37,6 +52,13 @@
     <script type="text/javascript" src="assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
     <script type="text/javascript" src="assets/js/vendor/videobackground/jquery.videobackground.js"></script>
     <script type="text/javascript" src="assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+    <script src="assets/js/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="assets/js/vendor/datatables/ColReorderWithResize.js"></script>
+    <script src="assets/js/vendor/datatables/colvis/dataTables.colVis.min.js"></script>
+    <script src="assets/js/vendor/datatables/tabletools/ZeroClipboard.js"></script>
+    <script src="assets/js/vendor/datatables/tabletools/dataTables.tableTools.min.js"></script>
+    <script src="assets/js/vendor/datatables/dataTables.bootstrap.js"></script>
 
     <script type="text/javascript" src="assets/js/vendor/chosen/chosen.jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/vendor/parsley/parsley.min.js"></script>

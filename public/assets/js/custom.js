@@ -25,6 +25,27 @@ $(function() {
 
 		return false
 	});
+
+	$(".profile-picture .controls .refresh").click(function(){
+		var image = $('.profile-pic');
+
+		var d=$(this).parent().parent().parent();
+		b(d);
+
+		getAjax('/profile')
+			.success(function(data) {
+				$.each(data[0], function(key, value) {
+					if(key == 'image') image.attr('src', value);
+				});
+
+				c(d);
+			})
+			.error(function() {
+				c(d);
+			});
+
+		return false
+	});
 });
 
 function getAjax(destination) {
