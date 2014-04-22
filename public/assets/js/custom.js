@@ -1,4 +1,7 @@
 $(function() {
+	// functions need to be initialize every request
+	setActiveMenu();
+
 	$(".profile-basic-credentials .controls .refresh").click(function(){
 		var fname = $('input[name="fname"]');
 		var mname = $('input[name="mname"]');
@@ -47,6 +50,19 @@ $(function() {
 		return false
 	});
 });
+
+// sets the active/current menu
+function setActiveMenu() {
+	var pathname = window.location.pathname;
+
+	if(pathname == '/dashboard') {
+		$('a[href="'+ pathname +'"]').parent().addClass('active');
+	}
+
+	if(pathname == '/user') {
+		$('a[href="'+ pathname +'"]').parent().addClass('active').parent().parent().addClass('open active');	
+	}
+}
 
 function getAjax(destination) {
 	return $.ajax({ url: destination, type: 'get' });

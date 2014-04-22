@@ -15,8 +15,7 @@
 				<section class="tile transparent">
 
 					<div class="tile-header transparent">
-						<h1><strong>Basic</strong> Datatable</h1>
-						<span class="note">including: <span class="italic">multi-column sorting and row select</span></span>
+						<h1><strong>User</strong> Table</h1>
 						<div class="controls">
 							<a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
 						</div>
@@ -28,39 +27,28 @@
 							<table class="table table-datatable table-custom" id="inlineEditDataTable">
 								<thead>
 									<tr>
-										<th class="sort-alpha">Rendering engine</th>
-										<th class="sort-alpha">Browser</th>
-										<th class="sort-amount">Platform(s)</th>
-										<th class="sort-numeric">Engine version</th>
-										<th>CSS grade</th>
-										<th class="no-sort">Actions</th>
+										<th class="sort-alpha">Name</th>
+										<th class="sort-alpha">User Type</th>
+										<th class="sort-amount">Username</th>
+										<th class="sort-numeric">Profile Image</th>
+										@if(Auth::user()->usertypeid == 1)
+											<th class="no-sort">Actions</th>
+										@endif
 									</tr>
 								</thead>
 								<tbody>
-									<tr class="odd gradeX">
-										<td>Trident</td>
-										<td>Internet Explorer 4.0</td>
-										<td>Win 95+</td>
-										<td class="text-center"> 4</td>
-                                  		<td class="text-center">X</td>
-                                  		<td class="actions text-center"><a class="edit" href="#">Edit</a><a class="delete" href="#">Delete</a></td>
-									</tr>
-									<tr class="even gradeC">
-										<td>Trident</td>
-										<td>Internet Explorer 5.0</td>
-										<td>Win 95+</td>
-										<td class="text-center">5</td>
-                                  		<td class="text-center">C</td>
-                                  		<td class="actions text-center"><a class="edit" href="#">Edit</a><a class="delete" href="#">Delete</a></td>
-									</tr>
-									<tr class="odd gradeA">
-										<td>Trident</td>
-										<td>Internet Explorer 5.5</td>
-										<td>Win 95+</td>
-										<td class="text-center">5.5</td>
-                                  		<td class="text-center">A</td>
-                                  		<td class="actions text-center"><a class="edit" href="#">Edit</a><a class="delete" href="#">Delete</a></td>
-									</tr>
+
+									@foreach($users as $user)
+										<tr>
+											<td class="text-center">{{ ucwords($user->user) }}</td>
+											<td class="text-center">{{ ucwords($user->usertype) }}</td>
+											<td class="text-center">{{ $user->username }}</td>
+											<td class="text-center"><img src="{{ $user->image }}" style="width: 30px; height: 30px;"></td>
+											@if(Auth::user()->usertypeid == 1)
+												<td class="actions text-center"><a class="edit" href="#">Edit</a><a class="delete" href="#">Delete</a></td>
+											@endif
+										</tr>
+									@endforeach
 								</tbody>
 							</table>
 						</div>
@@ -99,8 +87,7 @@
       			jqTds[1].innerHTML = '<input type="text" value="'+aData[1]+'">';
       			jqTds[2].innerHTML = '<input type="text" value="'+aData[2]+'">';
       			jqTds[3].innerHTML = '<input type="text" value="'+aData[3]+'">';
-      			jqTds[4].innerHTML = '<input type="text" value="'+aData[4]+'">';
-      			jqTds[5].innerHTML = '<a class="edit save" href="#">Save</a><a class="delete" href="#">Delete</a>';
+      			jqTds[4].innerHTML = '<a class="edit save" href="#">Save</a><a class="delete" href="#">Delete</a>';
       		};
 
       		function saveRow(oTable02, nRow) {
@@ -109,8 +96,7 @@
 		        oTable02.fnUpdate( jqInputs[1].value, nRow, 1, false );
 		        oTable02.fnUpdate( jqInputs[2].value, nRow, 2, false );
 		        oTable02.fnUpdate( jqInputs[3].value, nRow, 3, false );
-		        oTable02.fnUpdate( jqInputs[4].value, nRow, 4, false );
-		        oTable02.fnUpdate( '<a class="edit" href="#">Edit</a><a class="delete" href="#">Delete</a>', nRow, 5, false );
+		        oTable02.fnUpdate( '<a class="edit" href="#">Edit</a><a class="delete" href="#">Delete</a>', nRow, 4, false );
 		        oTable02.fnDraw();
       		};
 

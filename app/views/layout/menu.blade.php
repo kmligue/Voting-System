@@ -54,7 +54,7 @@
 				<a href="#" class="sidebar-toggle" data-toggle="#navigation">Navigation <i class="fa fa-angle-up"></i></a>
 
 				<ul class="menu">
-					<li class="active">
+					<li>
 						<a href="/dashboard">
 							<i class="fa fa-tachometer"></i> Dashboard
 						</a>
