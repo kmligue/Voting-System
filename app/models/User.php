@@ -56,8 +56,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user = User::findOrFail($id);
 
 		$rules = array(
-			'first name' => 'required',
-			'last name' => 'required',
+			'first name' => 'required|alpha_spaces',
+			'last name' => 'required|alpha_spaces',
 			'user type' => 'required',
 			'username' => 'required|min:6|unique:users,username'
 		);
@@ -141,6 +141,57 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 		else {
 			return Redirect::to('profile')->with('upload-error', 'Error uploading file.');
+		}
+	}
+
+	public static function saveUser() {
+
+		$rules = array(
+			'first name' => 'required|alpha_spaces',
+			'middle name' => 'alpha_spaces',
+			'last name' => 'required|alpha_spaces',
+			'user type' => 'required',
+			'username' => 'required|min:6|unique:users,username',
+			'password' => 'required|min:6|confirmed',
+			'password_confirmation' => 'required|min:6|same:password'
+		);
+
+		$credentials = array(
+			'first name' => Input::get('fname'),
+			'middle name' => Input::get('mname'),
+			'last name' => Input::get('lname'),
+			'user type' => Input::get('usertypeid'),
+			'username' => Input::get('username'),
+			'password' => Input::get('password'),
+			'password_confirmation' => Input::get('password_confirmation')
+		);
+
+		$validator = Validator::make($credentials, $rules);
+
+		if($validator->fails()) return Redirect::to('user')->withErrors($validator)->withInput(Input::except('password_confirmation'));
+		
+		$destination = public_path() . '/assets/images/';
+
+		$uploaded = Input::file('image')->move($destination, Input::file('image')->getClientOriginalName());
+
+		if($uploaded) {
+			$user = new User();
+
+			$user->fname = Input::get('fname');
+			$user->mname = Input::get('mname');
+			$user->lname = Input::get('lname');
+			$user->usertypeid = Input::get('usertypeid');
+			$user->username = Input::get('username');
+			$user->password = Hash::make(Input::get('password'));
+			$user->image = '/assets/images/' . Input::file('image')->getClientOriginalName();
+
+			$user->save();
+
+			if($user) return Redirect::to('user')->with('msg-success', 'User successfully saved!');
+			else return Redirect::to('user')->with('msg-error', 'Error saving data!');
+		}
+		else {
+			return Redirect::to('user')->with('msg-error', 'Error uploading image!');
 		}
 	}
 

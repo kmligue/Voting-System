@@ -2,14 +2,14 @@ body .navbar .navbar-header .navbar-brand {
 	background: none;
 }
 
+body #content .tile.transparent-black .form-control[readonly] {
+	color: white;
+}
+
 .tab-content > div {
 	padding: 5px 0;
 }
 
 .profile-pic {
 	margin-bottom: 10px;
-}
-
-body #content .tile.transparent-black .form-control[readonly] {
-	color: white;
 }

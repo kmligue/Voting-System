@@ -16,9 +16,18 @@ class UserController extends \BaseController {
 	 */
 	public function index()
 	{
-		$users = ViewUsers::all();
+		if(Request::ajax()) {
+			$id = Input::get('id');
 
-		return View::make('server.user.index')->with('users', $users);
+			$user = User::find($id);
+
+			return Response::json($user);
+		}
+
+		$users = ViewUsers::all();
+		$usertypes = Usertype::all();
+
+		return View::make('server.user.index')->with('users', $users)->with('usertypes', $usertypes);
 	}
 
 
@@ -40,7 +49,9 @@ class UserController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		// save user
+		return User::saveUser();
+
 	}
 
 
