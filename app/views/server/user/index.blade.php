@@ -25,54 +25,6 @@
 						
 						<?php
 
-							if($errors->first('first name')) {
-								echo '<div class="alert alert-red">' .
-									$errors->first('first name') .
-									'</div>';
-							}
-
-							if($errors->first('middle name')) {
-								echo '<div class="alert alert-red">' .
-									$errors->first('middle name') .
-									'</div>';
-							}
-
-							if($errors->first('last name')) {
-								echo '<div class="alert alert-red">' .
-									$errors->first('last name') .
-									'</div>';
-							}
-
-							if($errors->first('user type')) {
-								echo '<div class="alert alert-red">' .
-									$errors->first('user type') .
-									'</div>';
-							}
-
-							if($errors->first('username')) {
-								echo '<div class="alert alert-red">' .
-									$errors->first('username') .
-									'</div>';
-							}
-
-							if($errors->first('password')) {
-								echo '<div class="alert alert-red">' .
-									$errors->first('password') .
-									'</div>';
-							}
-
-							if($errors->first('password_confirmation')) {
-								echo '<div class="alert alert-red">' .
-									$errors->first('password_confirmation') .
-									'</div>';
-							}
-
-							if(Session::has('msg-error')) {
-								echo '<div class="alert alert-red">' .
-									Session::get('msg-error') .
-									'</div>';
-							}
-
 							if(Session::has('msg-success')) {
 								echo '<div class="notification notification-success">' .
 								'<h4>' . Session::get('msg-success') . '</h4>' .
@@ -85,10 +37,13 @@
 							<table class="table table-datatable table-custom" id="inlineEditDataTable">
 								<thead>
 									<tr>
-										<th class="sort-alpha">Name</th>
+										<th class="sort-numeric">Id</th>
+										<th class="sort-alpha">First Name</th>
+										<th class="sort-alpha">Middle Name</th>
+										<th class="sort-alpha">Last Name</th>
 										<th class="sort-alpha">User Type</th>
-										<th class="sort-amount">Username</th>
-										<th class="sort-numeric">Profile Image</th>
+										<th class="sort-alpha">Username</th>
+										<th class="no-sort">Profile Image</th>
 										@if(Auth::user()->usertypeid == 1)
 											<th class="no-sort">Actions</th>
 										@endif
@@ -98,12 +53,15 @@
 
 									@foreach($users as $user)
 										<tr>
-											<td class="text-center">{{ ucwords($user->user) }}</td>
+											<td class="text-center">{{ $user->id }}</td>
+											<td class="text-center">{{ ucwords($user->fname) }}</td>
+											<td class="text-center">{{ ucwords($user->mname) }}</td>
+											<td class="text-center">{{ ucwords($user->lname) }}</td>
 											<td class="text-center">{{ ucwords($user->usertype) }}</td>
 											<td class="text-center">{{ $user->username }}</td>
 											<td class="text-center"><img src="{{ $user->image }}" style="width: 30px; height: 30px;"></td>
 											@if(Auth::user()->usertypeid == 1)
-												<td class="actions text-center"><a class="edit" href="#editModalDialog" data-toggle="modal" id="{{ $user->id }}">Edit</a><a class="delete" href="#">Delete</a></td>
+												<td class="actions text-center"><a class="edit" href="/user/{{ $user->id }}/edit">Edit</a><a class="delete" href="#">Delete</a></td>
 											@endif
 										</tr>
 									@endforeach
@@ -115,154 +73,6 @@
 
 				</section>
 
-			</div>
-
-			<div class="modal fade" id="addModalDialog" tabindex="-1" role="dialog" aria-labelledby="modalDialogLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
-							<h3 class="modal-title" id="modalDialogLabel"><strong>Add</strong> System User</h3>
-						</div>
-
-						{{ Form::open(array('url' => '/user', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form', 'parsley-validate' => '', 'enctype' => 'multipart/form-data')) }}
-
-						<div class="modal-body">
-
-							<div class="form-group">
-								<label for="image">Upload *</label>
-								<div class="input-group">
-									<span class="input-group-btn">
-										<span class="btn btn-primary btn-file" style="margin-bottom: 24px;">
-											<i class="fa fa-upload"></i><input type="file" name="image" id="image">
-										</span>
-									</span>
-									<input type="text" class="form-control image" readonly="" parsley-trigger="change" parsley-required="true" parsley-validation-minlength="1">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="firstname">First Name *</label>
-								<input type="text" name="fname" class="form-control" id="firstname" parsley-trigger="change" parsley-required="true" style="text-transform: capitalize;" value="{{ Input::old('fname') }}">
-							</div>
-
-							<div class="form-group">
-								<label for="middlename">Middle Name</label>
-								<input type="text" name="mname" class="form-control" id="middlename" style="text-transform: capitalize;" value="{{ Input::old('mname') }}">
-							</div>
-
-							<div class="form-group">
-								<label for="lastname">Last Name *</label>
-								<input type="text" name="lname" class="form-control" id="lastname" parsley-trigger="change" parsley-required="true" style="text-transform: capitalize;" value="{{ Input::old('lname') }}">
-							</div>
-
-							<div class="form-group">
-								<label for="usertype">User Type *</label>
-								<select name="usertypeid" class="chosen-select chosen-transparent form-control" id="usertype" parsley-trigger="change" parsley-required="true" parsley-error-container="#selectbox">
-									<option value="">Please choose</option>
-									@foreach($usertypes as $usertype)
-										<option value="{{ $usertype->id }}" <?php if(Input::old('usertypeid') == $usertype->id) echo 'selected'; ?>>{{ ucwords($usertype->name) }}</option>
-									@endforeach
-								</select>
-							</div>
-
-							<div class="form-group">
-								<label for="username">Username *</label>
-								<input type="text" name="username" class="form-control" id="username" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" value="{{ Input::old('username') }}">
-							</div>
-
-							<div class="form-group">
-								<label for="password">Password *</label>
-								<input type="password" name="password" class="form-control" id="password" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" parsley-equalto="#retype-password">
-							</div>
-
-							<div class="form-group">
-								<label for="retype-password">Re-Type Password *</label>
-								<input type="password" name="password_confirmation" class="form-control" id="retype-password" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" parsley-equalto="#password">
-							</div>
-							
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary">Submit</button>
-							<button type="reset" class="btn btn-default">Reset</button>
-						</div>
-						{{ Form::close() }}
-					</div>
-				</div>
-			</div>
-
-			<div class="modal fade" id="editModalDialog" tabindex="-1" role="dialog" aria-labelledby="modalDialogLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
-							<h3 class="modal-title" id="modalDialogLabel"><strong>Edit</strong> System User</h3>
-						</div>
-
-						{{ Form::open(array('url' => '/user', 'method' => 'post', 'class' => 'form-horizontal', 'role' => 'form', 'parsley-validate' => '', 'enctype' => 'multipart/form-data')) }}
-
-						<div class="modal-body">
-
-							<div class="form-group">
-								<label for="image">Upload *</label>
-								<div class="input-group">
-									<span class="input-group-btn">
-										<span class="btn btn-primary btn-file" style="margin-bottom: 24px;">
-											<i class="fa fa-upload"></i><input type="file" name="image" id="image">
-										</span>
-									</span>
-									<input type="text" class="form-control image" readonly="" parsley-trigger="change" parsley-required="true" parsley-validation-minlength="1">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="firstname">First Name *</label>
-								<input type="text" name="fname" class="form-control" id="firstname" parsley-trigger="change" parsley-required="true" style="text-transform: capitalize;" value="{{ Input::old('fname') }}">
-							</div>
-
-							<div class="form-group">
-								<label for="middlename">Middle Name</label>
-								<input type="text" name="mname" class="form-control" id="middlename" style="text-transform: capitalize;" value="{{ Input::old('mname') }}">
-							</div>
-
-							<div class="form-group">
-								<label for="lastname">Last Name *</label>
-								<input type="text" name="lname" class="form-control" id="lastname" parsley-trigger="change" parsley-required="true" style="text-transform: capitalize;" value="{{ Input::old('lname') }}">
-							</div>
-
-							<div class="form-group">
-								<label for="usertype">User Type *</label>
-								<select name="usertypeid" class="chosen-select chosen-transparent form-control" id="usertype" parsley-trigger="change" parsley-required="true" parsley-error-container="#selectbox">
-									<option value="">Please choose</option>
-									@foreach($usertypes as $usertype)
-										<option value="{{ $usertype->id }}" <?php if(Input::old('usertypeid') == $usertype->id) echo 'selected'; ?>>{{ ucwords($usertype->name) }}</option>
-									@endforeach
-								</select>
-							</div>
-
-							<div class="form-group">
-								<label for="username">Username *</label>
-								<input type="text" name="username" class="form-control" id="username" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" value="{{ Input::old('username') }}">
-							</div>
-
-							<div class="form-group">
-								<label for="password">Password *</label>
-								<input type="password" name="password" class="form-control" id="password" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" parsley-equalto="#retype-password">
-							</div>
-
-							<div class="form-group">
-								<label for="retype-password">Re-Type Password *</label>
-								<input type="password" name="password_confirmation" class="form-control" id="retype-password" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" parsley-equalto="#password">
-							</div>
-							
-						</div>
-						<div class="modal-footer">
-							<button type="submit" class="btn btn-primary">Submit</button>
-							<button type="reset" class="btn btn-default">Reset</button>
-						</div>
-						{{ Form::close() }}
-					</div>
-				</div>
 			</div>
 
 		</div>
@@ -338,16 +148,22 @@
       			"oLanguage": {
       				"sSearch": ""
       			},
+      			"aaSorting": [[ 0, "desc" ]],
       			"aoColumnDefs": [
-      				{ 'bSortable': false, 'aTargets': [ "no-sort" ] }
+      				{ 	'bSortable': false, 
+      					'aTargets': [ "no-sort" ] ,
+      				}
       			],
       			"fnInitComplete": function(oSettings, json) {
       				$('.dataTables_filter input').attr("placeholder", "Search");
       			}
       		});
 
+      		// hide first column
+      		oTable02.fnSetColumnVis(0, false);
+
       		// append add row button to table
-      		var addRowLink = '<a href="#addModalDialog" id="addRow" class="btn btn-green btn-xs add-row" data-toggle="modal">Add row</a>'
+      		var addRowLink = '<a href="user/create" id="addRow" class="btn btn-green btn-xs add-row">Add User</a>'
       		$('#inlineEditDataTable_wrapper').append(addRowLink);
 
       		var nEditing = null;

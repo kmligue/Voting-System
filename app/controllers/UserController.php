@@ -24,7 +24,7 @@ class UserController extends \BaseController {
 			return Response::json($user);
 		}
 
-		$users = ViewUsers::all();
+		$users = ViewUsers::get();
 		$usertypes = Usertype::all();
 
 		return View::make('server.user.index')->with('users', $users)->with('usertypes', $usertypes);
@@ -38,7 +38,10 @@ class UserController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		// create user
+		$usertypes = UserType::all();
+
+		return View::make('server.user.create')->with('usertypes', $usertypes);
 	}
 
 
@@ -75,7 +78,11 @@ class UserController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		// show edit form
+		$user = User::find($id);
+		$usertypes = UserType::all();
+
+		return View::make('server.user.edit')->with('user', $user)->with('usertypes', $usertypes);
 	}
 
 
@@ -87,7 +94,8 @@ class UserController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		// update user
+		return User::updateUser($id);
 	}
 
 

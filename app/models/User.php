@@ -51,19 +51,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
-	public static function updateCredentials($id) {
+	public static function updateProfileCredentials($id) {
 	
 		$user = User::findOrFail($id);
 
 		$rules = array(
-			'first name' => 'required|alpha_spaces',
-			'last name' => 'required|alpha_spaces',
+			'first name' => 'required|alpha_spaces|unique:users,fname,'.$id.',id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),
+			'middle name' => 'alpha_spaces',
+			'last name' => 'required|alpha_spaces|unique:users,lname,'.$id.',id,fname,'.Input::get('fname').',mname,'.Input::get('mname'),
 			'user type' => 'required',
-			'username' => 'required|min:6|unique:users,username'
+			'username' => 'required|min:6|unique:users,username,'.$id
 		);
 
 		$credentials = array(
 			'first name' => Input::get('fname'),
+			'middle name' => Input::get('mname'),
 			'last name' => Input::get('lname'),
 			'user type' => Input::get('usertypeid'),
 			'username' => Input::get('username')
@@ -147,9 +149,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public static function saveUser() {
 
 		$rules = array(
-			'first name' => 'required|alpha_spaces',
+			'image' => 'required|image',
+			'first name' => 'required|alpha_spaces|unique:users,fname,'.$id.',id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),
 			'middle name' => 'alpha_spaces',
-			'last name' => 'required|alpha_spaces',
+			'last name' => 'required|alpha_spaces|unique:users,lname,'.$id.',id,mname,'.Input::get('mname').',fname,'.Input::get('fname'),
 			'user type' => 'required',
 			'username' => 'required|min:6|unique:users,username',
 			'password' => 'required|min:6|confirmed',
@@ -157,6 +160,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		);
 
 		$credentials = array(
+			'image' => Input::file('image'),
 			'first name' => Input::get('fname'),
 			'middle name' => Input::get('mname'),
 			'last name' => Input::get('lname'),
@@ -168,7 +172,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		$validator = Validator::make($credentials, $rules);
 
-		if($validator->fails()) return Redirect::to('user')->withErrors($validator)->withInput(Input::except('password_confirmation'));
+		if($validator->fails()) return Redirect::to('user/create')->withErrors($validator)->withInput(Input::except('password_confirmation'));
 		
 		$destination = public_path() . '/assets/images/';
 
@@ -188,11 +192,77 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$user->save();
 
 			if($user) return Redirect::to('user')->with('msg-success', 'User successfully saved!');
-			else return Redirect::to('user')->with('msg-error', 'Error saving data!');
+			else return Redirect::to('user/create')->with('msg-error', 'Error saving data!');
 		}
 		else {
-			return Redirect::to('user')->with('msg-error', 'Error uploading image!');
+			return Redirect::to('user/create')->with('msg-error', 'Error uploading image!');
 		}
+	}
+
+	public static function updateUser($id) {
+
+		$rules = array(
+			'image' => 'image',
+			'first name' => 'required|alpha_spaces|unique:users,fname,'.$id.',id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),
+			'middle name' => 'alpha_spaces',
+			'last name' => 'required|alpha_spaces|unique:users,lname,'.$id.',id,mname,'.Input::get('mname').',fname,'.Input::get('fname'),
+			'user type' => 'required',
+			'username' => 'required|min:6|unique:users,username,'. $id,
+			'password' => 'min:6|confirmed',
+			'password_confirmation' => 'min:6|same:password'
+		);
+
+		$credentials = array(
+			'image' => Input::file('image'),
+			'first name' => Input::get('fname'),
+			'middle name' => Input::get('mname'),
+			'last name' => Input::get('lname'),
+			'user type' => Input::get('usertypeid'),
+			'username' => Input::get('username'),
+			'password' => Input::get('password'),
+			'password_confirmation' => Input::get('password_confirmation')
+		);
+
+		$validator = Validator::make($credentials, $rules);
+
+		if($validator->fails()) return Redirect::to('user/'. $id .'/edit')->withErrors($validator)->withInput(Input::except('password_confirmation'));
+
+		// get user
+		$user = User::find($id);
+
+		// determine if new image needs to be uploaded
+		if(Input::hasFile('image')) {
+			$destination = public_path() . '/assets/images/';
+
+			$uploaded = Input::file('image')->move($destination, Input::file('image')->getClientOriginalName());
+
+			// no error uploading image
+			if($uploaded) {
+				$user->image = '/assets/images/' . Input::file('image')->getClientOriginalName();
+			} 
+			// error uploading image
+			else {
+				return Redirect::to('user/'. $id .'/create')->with('msg-error', 'Error uploading image!');
+			}
+		}
+
+		// all validation is successfull
+		$user->fname = Input::get('fname');
+		$user->mname = Input::get('mname');
+		$user->lname = Input::get('lname');
+		$user->usertypeid = Input::get('usertypeid');
+		$user->username = Input::get('username');
+
+		// determine if password should be change
+		if(Input::has('password')) {
+			$user->password = Hash::make(Input::get('password'));
+		}
+
+		$user->save();
+
+		if($user) return Redirect::to('user')->with('msg-success', 'User successfully saved!');
+		else return Redirect::to('user/'. $id .'/create')->with('msg-error', 'Error saving data!');
+
 	}
 
 }

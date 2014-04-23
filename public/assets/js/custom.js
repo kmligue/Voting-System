@@ -2,23 +2,6 @@ $(function() {
 	// functions need to be initialize every request
 	setActiveMenu();
 
-	// ajax call
-	$(document).on("click", "#inlineEditDataTable a.edit", function(e) {
-		var id = $(this).attr('id');
-		var d = $('body');
-
-		b(d);
-
-		// $.ajax({
-		// 	url: '/user',
-		// 	type: 'get',
-		// 	data: 'id='+id,
-		// 	success: function(data) {
-
-		// 	}
-		// });
-	});
-
 	$(".profile-basic-credentials .controls .refresh").click(function(){
 		var fname = $('input[name="fname"]');
 		var mname = $('input[name="mname"]');

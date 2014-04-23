@@ -87,7 +87,7 @@ class ProfileController extends \BaseController {
 			return User::updateProfileImage($id);
 		}
 		else {
-			return User::updateCredentials($id);
+			return User::updateProfileCredentials($id);
 		}
 	}
 

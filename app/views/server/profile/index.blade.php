@@ -132,21 +132,22 @@
 							<div class="form-group">
 								<label for="firstname" class="col-sm-4 control-label">First Name *</label>
 								<div class="col-sm-8">
-									<input type="text" name="fname" class="form-control" id="firstname" parsley-trigger="change" parsley-required="true" value="<?php if(empty(Input::old('fname'))) echo Auth::user()->fname; else echo Input::old('fname'); ?>" style="text-transform: capitalize;">
+									{{ Form::text('fname', Auth::user()->fname, array('class' => 'form-control', 'id' => 'firstname', 'parsley-trigger' => 'change', 'parsley-required' => 'true', 'style' => 'text-transform: capitalize;')) }}
+									
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="middlename" class="col-sm-4 control-label">Middle Name</label>
 								<div class="col-sm-8">
-									<input type="text" name="mname" class="form-control" id="middlename" value="<?php if(empty(Input::old('mname'))) echo Auth::user()->mname; else echo Input::old('mname'); ?>" style="text-transform: capitalize;">
+									{{ Form::text('mname', Auth::user()->mname, array('class' => 'form-control', 'id' => 'middlename', 'style' => 'text-transform: capitalize;')) }}
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="lastname" class="col-sm-4 control-label">Last Name *</label>
 								<div class="col-sm-8">
-									<input type="text" name="lname" class="form-control" id="lastname" parsley-trigger="change" parsley-required="true" value="<?php if(empty(Input::old('lname'))) echo Auth::user()->lname; else echo Input::old('lname'); ?>" style="text-transform: capitalize;">
+									{{ Form::text('lname', Auth::user()->lname, array('class' => 'form-control', 'id' => 'firstname', 'parsley-trigger' => 'change', 'parsley-required' => 'true', 'style' => 'text-transform: capitalize;')) }}
 								</div>
 							</div>
 
@@ -165,7 +166,7 @@
 							<div class="form-group">
 								<label for="username" class="col-sm-4 control-label">Username *</label>
 								<div class="col-sm-8">
-									<input type="text" name="username" class="form-control" id="username" parsley-trigger="change" parsley-required="true" parsley-minlength="6" parsley-validation-minlength="1" value="<?php if(empty(Input::old('username'))) echo Auth::user()->username; else echo Input::old('username'); ?>">
+									{{ Form::text('username', Auth::user()->username, array('class' => 'form-control', 'id' => 'firstname', 'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '6', 'parsley-validation-minlength' => '1')) }}
 								</div>
 							</div>
 
