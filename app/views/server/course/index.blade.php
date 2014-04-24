@@ -74,6 +74,29 @@
 
 		</div>
 	</div>
+
+	<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="modalConfirmLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+	            <h3 class="modal-title" id="modalConfirmLabel"><strong>Delete</strong> course</h3>
+	        </div>
+	        {{ Form::open(array('url' => '', 'method' => 'delete', 'id' => 'delete')) }}
+	        <div class="modal-body">
+	              
+	            {{ Form::hidden('delete-id') }}
+	            <p>Are you sure you want to delete course?</p>
+
+	        </div>
+	        <div class="modal-footer">
+	            <button class="btn btn-slategray" data-dismiss="modal" aria-hidden="true">Close</button>
+	            <input type="submit" class="btn btn-redbrown" value="Delete">
+	        </div>
+	        {{ Form::close() }}
+        </div>
+    </div>
+  </div>
 @stop
 
 @section('script')
@@ -105,7 +128,7 @@
       		oTable02.fnSetColumnVis(0, false);
 
       		// append add row button to table
-      		var addRowLink = '<a href="course/create" id="addRow" class="btn btn-green btn-xs add-row">Add User</a>'
+      		var addRowLink = '<a href="course/create" id="addRow" class="btn btn-green btn-xs add-row">Add Course</a>'
       		$('#inlineEditDataTable_wrapper').append(addRowLink);
 
       		var nEditing = null;
@@ -115,7 +138,7 @@
 	            var id = $(this).attr('id');
 	            
 	            $('input[name="delete-id"]').val(id);
-	            $('form#delete').attr('action', 'user/' + id);
+	            $('form#delete').attr('action', 'course/' + id);
 	        });
 		})
 	</script>

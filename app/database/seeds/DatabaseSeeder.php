@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('UserTableSeeder');
 		$this->call('CourseTableSeeder');
 		$this->call('StudentTableSeeder');
+		$this->call('PositionTableSeeder');
 	}
 
 }
@@ -73,14 +74,12 @@ class CourseTableSeeder extends Seeder {
 			array(
 				'name' => 'BSIT',
 				'description' => 'Bachelor in Science in Information Technology',
-				'representative' => 0,
 				'created_at' => new DateTime,
 				'updated_at' => new DateTime
 			),
 			array(
 				'name' => 'BSHRM',
 				'description' => 'Bachelor in Science in Hotel and Restaurant Management',
-				'representative' => 0,
 				'created_at' => new DateTime,
 				'updated_at' => new DateTime
 			)
@@ -110,5 +109,21 @@ class StudentTableSeeder extends Seeder {
 				)
 			);
 		}
+	}
+}
+
+class PositionTableSeeder extends Seeder {
+
+	public function run() {
+		DB::table('positions')->delete();
+
+		$positions = array(
+			'name' => 'President',
+			'ordinality' => 1,
+			'created_at' => new DateTime,
+			'updated_at' => new DateTime
+		);
+
+		DB::table('positions')->insert($positions);
 	}
 }

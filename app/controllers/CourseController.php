@@ -66,7 +66,10 @@ class CourseController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		// show edit form
+		$course = Course::findOrFail($id);
+
+		return View::make('server.course.edit')->with('course', $course);
 	}
 
 
@@ -78,7 +81,8 @@ class CourseController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		// update course
+		return Course::updateCourse($id);
 	}
 
 
@@ -90,7 +94,17 @@ class CourseController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		// delete course
+		try {
+			$course = Course::findOrFail($id);
+
+			$course->delete();
+		} catch (Exception $e) {
+			return Redirect::to('course')->with('msg-error', 'Error deleting account.');
+		}
+
+		if($course) return Redirect::to('course')->with('msg-success', 'Account successfully deleted!');
+		else return Redirect::to('course')->with('msg-error', 'Error deleting account.');
 	}
 
 
