@@ -28,6 +28,7 @@
 
 						?>
 
+						{{ Form::hidden('route', Session::get('route')) }}
 						<div class="input-group">
 							{{ Form::text('username', '', array('placeholder' => 'Username', 'autofocus' => '', 'class' => 'form-control')) }}
 							<div class="input-group-addon"><i class="fa fa-user"></i></div>

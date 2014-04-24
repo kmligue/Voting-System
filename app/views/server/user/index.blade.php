@@ -16,9 +16,6 @@
 
 					<div class="tile-header transparent">
 						<h1><strong>User</strong> Table</h1>
-						<div class="controls">
-							<a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
-						</div>
 					</div>
 			
 					<div class="tile-body color transparent-black rounded-corners">
@@ -30,6 +27,12 @@
 								'<h4>' . Session::get('msg-success') . '</h4>' .
 								'</div>';
 							}
+
+              if(Session::has('msg-error')) {
+                echo '<div class="alert alert-red">' .
+                      Session::get('msg-error') .
+                      '</div>';
+              }
 
 						?>
 						{{ Input::get('fname') }}
@@ -61,7 +64,7 @@
 											<td class="text-center">{{ $user->username }}</td>
 											<td class="text-center"><img src="{{ $user->image }}" style="width: 30px; height: 30px;"></td>
 											@if(Auth::user()->usertypeid == 1)
-												<td class="actions text-center"><a class="edit" href="/user/{{ $user->id }}/edit">Edit</a><a class="delete" href="#">Delete</a></td>
+												<td class="actions text-center"><a class="edit" href="/user/{{ $user->id }}/edit">Edit</a><a class="delete" href="#delete" id="{{ $user->id }}" data-toggle="modal">Delete</a></td>
 											@endif
 										</tr>
 									@endforeach
@@ -77,6 +80,29 @@
 
 		</div>
 	</div>
+
+  <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="modalConfirmLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+          <h3 class="modal-title" id="modalConfirmLabel"><strong>Delete</strong> user</h3>
+        </div>
+        {{ Form::open(array('url' => '', 'method' => 'delete', 'id' => 'delete')) }}
+        <div class="modal-body">
+              
+            {{ Form::hidden('delete-id') }}
+            <p>Are you sure you want to delete user?</p>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-slategray" data-dismiss="modal" aria-hidden="true">Close</button>
+          <input type="submit" class="btn btn-redbrown" value="Delete">
+        </div>
+        {{ Form::close() }}
+      </div>
+    </div>
+  </div>
 @stop
 
 @section('script')
@@ -186,13 +212,13 @@
       		// });
 
       		// delete row initialize
-      		$(document).on("click", "#inlineEditDataTable a.delete", function(e) {
-      			e.preventDefault();
+      		// $(document).on("click", "#inlineEditDataTable a.delete", function(e) {
+      		// 	e.preventDefault();
 
-      			var nRow = $(this).parents('tr')[0];
-      			oTable02.fnDeleteRow(nRow);
-      			nEditing = null;
-      		});
+      		// 	var nRow = $(this).parents('tr')[0];
+      		// 	oTable02.fnDeleteRow(nRow);
+      		// 	nEditing = null;
+      		// });
 
       		// // edit row initialize
       		// $(document).on("click", "#inlineEditDataTable a.edit", function(e) {
@@ -224,6 +250,14 @@
       		// 		nEditing = nRow;
       		// 	}
       		// });
+          
+          // delete function
+          $(document).on("click", "#inlineEditDataTable a.delete", function(e) {
+            var id = $(this).attr('id');
+            
+            $('input[name="delete-id"]').val(id);
+            $('form#delete').attr('action', 'user/' + id);
+          });
       	})
 	</script>
 @stop

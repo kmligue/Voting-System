@@ -78,3 +78,9 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+Route::filter('role', function() {
+	if(Auth::user()->usertypeid != 1) {
+		return Redirect::to('dashboard');
+	}
+});

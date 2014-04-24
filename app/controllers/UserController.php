@@ -6,6 +6,7 @@ class UserController extends \BaseController {
 
 		// perform auth check
 		$this->beforeFilter('auth');
+		$this->beforeFilter('role', array('only' => array('edit', 'destroy')));
 
 	}
 
@@ -107,7 +108,19 @@ class UserController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		// delete user
+
+		// cannot delete own account
+		if(Auth::user()->id == $id) {
+			return Redirect::to('user')->with('msg-error', 'Cannot delete own account.');
+		}
+
+		$user = User::findOrFail($id);
+
+		$user->delete();
+
+		if($user) return Redirect::to('user')->with('msg-success', 'Account successfully deleted!');
+		else return Redirect::to('user')->with('msg-error', 'Error deleting account.');
 	}
 
 

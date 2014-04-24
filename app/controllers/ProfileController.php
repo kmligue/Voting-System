@@ -6,6 +6,7 @@ class ProfileController extends \BaseController {
 
 		// perform auth check
 		$this->beforeFilter('auth');
+		$this->beforeFilter('role', array('only' => array('edit', 'destroy')));
 
 	}
 

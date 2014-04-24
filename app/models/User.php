@@ -150,9 +150,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		$rules = array(
 			'image' => 'required|image',
-			'first name' => 'required|alpha_spaces|unique:users,fname,'.$id.',id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),
+			'first name' => 'required|alpha_spaces|unique:users,fname,null,id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),
 			'middle name' => 'alpha_spaces',
-			'last name' => 'required|alpha_spaces|unique:users,lname,'.$id.',id,mname,'.Input::get('mname').',fname,'.Input::get('fname'),
+			'last name' => 'required|alpha_spaces|unique:users,lname,null,id,mname,'.Input::get('mname').',fname,'.Input::get('fname'),
 			'user type' => 'required',
 			'username' => 'required|min:6|unique:users,username',
 			'password' => 'required|min:6|confirmed',
