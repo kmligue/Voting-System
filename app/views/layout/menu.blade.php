@@ -70,7 +70,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="/course">
 									<i class="fa fa-caret-right"></i> Course
 								</a>
 							</li>

@@ -13,7 +13,7 @@
 			<div class="col-lg-12 col-md-12">
 				<section class="tile color transparent-black">
 					<div class="tile-header">
-						<h1><strong>Create</strong> System User</h1>
+						<h1><strong>Add</strong> System User</h1>
 					</div>
 
 					<div class="tile-body">
@@ -36,9 +36,9 @@
 								'</div>';
 						}
 
-						if($errors->first('first name')) {
+						if($errors->first('name')) {
 							echo '<div class="alert alert-red">' .
-								$errors->first('first name') .
+								$errors->first('name') .
 								'</div>';
 						}
 
@@ -119,21 +119,21 @@
 							<div class="form-group">
 								<label for="username" class="col-sm-4 control-label">Username *</label>
 								<div class="col-sm-6">
-									{{ Form::text('username', '', array('class' => 'form-control', 'id' => 'username', 'parsley-trigger' => 'change', 'parsley-required' => 'true', 'style' => 'text-transform: capitalize')) }}
+									{{ Form::text('username', '', array('class' => 'form-control', 'id' => 'username', 'parsley-trigger' => 'change', 'parsley-required' => 'true')) }}
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="password" class="col-sm-4 control-label">Password</label>
 								<div class="col-sm-6">
-									{{ Form::password('password', '', array('class' => 'form-control', 'id' => 'password', 'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '6', 'parsley-validation-minlength' => '1', 'parsley-equalto' => '#retype-password')) }}
+									{{ Form::password('password', array('class' => 'form-control', 'id' => 'password', 'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '6', 'parsley-validation-minlength' => '1', 'parsley-equalto' => '#retype-password')) }}
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="retype-password" class="col-sm-4 control-label">Re-Type Password</label>
 								<div class="col-sm-6">
-									{{ Form::password('password_confirmation', '', array('class' => 'form-control', 'id' => 'retype-password', 'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '6', 'parsley-validation-minlength' => '1', 'parsley-equalto' => '#password')) }}
+									{{ Form::password('password_confirmation', array('class' => 'form-control', 'id' => 'retype-password', 'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-minlength' => '6', 'parsley-validation-minlength' => '1', 'parsley-equalto' => '#password')) }}
 								</div>
 							</div>
 

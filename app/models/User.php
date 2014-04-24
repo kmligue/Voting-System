@@ -53,18 +53,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public static function updateProfileCredentials($id) {
 	
-		$user = User::findOrFail($id);
+		$user = static::findOrFail($id);
 
 		$rules = array(
-			'first name' => 'required|alpha_spaces|unique:users,fname,'.$id.',id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),
+			'name' => 'required|alpha_spaces|unique:users,fname,'.$id.',id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),
 			'middle name' => 'alpha_spaces',
-			'last name' => 'required|alpha_spaces|unique:users,lname,'.$id.',id,fname,'.Input::get('fname').',mname,'.Input::get('mname'),
+			'last name' => 'required|alpha_spaces',
 			'user type' => 'required',
 			'username' => 'required|min:6|unique:users,username,'.$id
 		);
 
 		$credentials = array(
-			'first name' => Input::get('fname'),
+			'name' => Input::get('fname'),
 			'middle name' => Input::get('mname'),
 			'last name' => Input::get('lname'),
 			'user type' => Input::get('usertypeid'),
@@ -73,9 +73,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		$validator = Validator::make($credentials, $rules);
 		
-		if($validator->fails()) {
-			return Redirect::to('profile')->withErrors($validator)->withInput();
-		}
+		if($validator->fails()) return Redirect::to('profile')->withErrors($validator)->withInput();
 
 		$user->fname = Input::get('fname');
 		$user->mname = Input::get('mname');
@@ -91,7 +89,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public static function updatePassword($id) {
 
-		$user = User::findOrFail($id);
+		$user = static::findOrFail($id);
 
 		$rules = array(
 			'password' => 'required|min:6|confirmed',
@@ -116,7 +114,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	public static function updateProfileImage($id) {
-		$user = User::findOrFail($id);
+		$user = static::findOrFail($id);
 
 		$rules = array(
 			'image' => 'required|image'
@@ -150,9 +148,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		$rules = array(
 			'image' => 'required|image',
-			'first name' => 'required|alpha_spaces|unique:users,fname,null,id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),
+			'name' => 'required|alpha_spaces|unique:users,fname,null,id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),
 			'middle name' => 'alpha_spaces',
-			'last name' => 'required|alpha_spaces|unique:users,lname,null,id,mname,'.Input::get('mname').',fname,'.Input::get('fname'),
+			'last name' => 'required|alpha_spaces',
 			'user type' => 'required',
 			'username' => 'required|min:6|unique:users,username',
 			'password' => 'required|min:6|confirmed',
@@ -161,7 +159,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		$credentials = array(
 			'image' => Input::file('image'),
-			'first name' => Input::get('fname'),
+			'name' => Input::get('fname'),
 			'middle name' => Input::get('mname'),
 			'last name' => Input::get('lname'),
 			'user type' => Input::get('usertypeid'),
@@ -203,9 +201,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		$rules = array(
 			'image' => 'image',
-			'first name' => 'required|alpha_spaces|unique:users,fname,'.$id.',id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),
+			'name' => 'required|alpha_spaces|unique:users,fname,'.$id.',id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),
 			'middle name' => 'alpha_spaces',
-			'last name' => 'required|alpha_spaces|unique:users,lname,'.$id.',id,mname,'.Input::get('mname').',fname,'.Input::get('fname'),
+			'last name' => 'required|alpha_spaces',
 			'user type' => 'required',
 			'username' => 'required|min:6|unique:users,username,'. $id,
 			'password' => 'min:6|confirmed',
@@ -214,7 +212,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		$credentials = array(
 			'image' => Input::file('image'),
-			'first name' => Input::get('fname'),
+			'name' => Input::get('fname'),
 			'middle name' => Input::get('mname'),
 			'last name' => Input::get('lname'),
 			'user type' => Input::get('usertypeid'),
@@ -228,7 +226,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		if($validator->fails()) return Redirect::to('user/'. $id .'/edit')->withErrors($validator)->withInput(Input::except('password_confirmation'));
 
 		// get user
-		$user = User::find($id);
+		$user = static::findOrFail($id);
 
 		// determine if new image needs to be uploaded
 		if(Input::hasFile('image')) {
@@ -260,7 +258,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		$user->save();
 
-		if($user) return Redirect::to('user')->with('msg-success', 'User successfully saved!');
+		if($user) return Redirect::to('user')->with('msg-success', 'User successfully updated!');
 		else return Redirect::to('user/'. $id .'/create')->with('msg-error', 'Error saving data!');
 
 	}

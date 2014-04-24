@@ -18,7 +18,7 @@ class CreateCoursesTable extends Migration {
 			$table->string('name');
 			$table->string('description');
 			// sets if this course have representative position
-			$table->integer('representative');
+			$table->integer('representative')->default(0);
 			$table->timestamps();
 		});
 	}

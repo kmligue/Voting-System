@@ -6,6 +6,7 @@ class CourseController extends \BaseController {
 
 		// perform auth check
 		$this->beforeFilter('auth');
+		$this->beforeFilter('role', array('only' => array('edit', 'destroy')));
 
 	}
 
@@ -16,7 +17,9 @@ class CourseController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$courses = Course::all();
+
+		return View::make('server.course.index')->with('courses', $courses);
 	}
 
 
@@ -27,7 +30,8 @@ class CourseController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		// create course form
+		return View::make('server.course.create');
 	}
 
 
@@ -38,7 +42,7 @@ class CourseController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		return Course::saveCourse();
 	}
 
 

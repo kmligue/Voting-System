@@ -36,9 +36,9 @@
 								'</div>';
 						}
 
-						if($errors->first('first name')) {
+						if($errors->first('name')) {
 							echo '<div class="alert alert-red">' .
-								$errors->first('first name') .
+								$errors->first('name') .
 								'</div>';
 						}
 
