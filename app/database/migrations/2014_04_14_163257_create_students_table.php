@@ -15,15 +15,10 @@ class CreateStudentsTable extends Migration {
 		// create students table
 		Schema::create('students', function($table) {
 			$table->increments('id');
+			$table->integer('course_id');
 			$table->string('fname');
 			$table->string('mname');
 			$table->string('lname');
-			$table->unsignedInteger('courseid');
-			$table->foreign('courseid')
-				->references('id')
-				->on('courses')
-				->onUpdate('cascade')
-				->onDelete('restrict');
 			$table->timestamps();
 		});
 	}

@@ -44,7 +44,7 @@
 										<th class="sort-alpha">Name</th>
 										<th class="sort-alpha">Description</th>
 										<th class="sort-alpha">Representative</th>
-										@if(Auth::user()->usertypeid == 1)
+										@if(Auth::user()->usertype_id == 1)
 											<th class="no-sort">Actions</th>
 										@endif
 									</tr>
@@ -57,7 +57,7 @@
 											<td class="text-center">{{ ucwords($course->name) }}</td>
 											<td class="text-center">{{ ucwords($course->description) }}</td>
 											<td class="text-center"><span class="check-toggler <?php if($course->representative == 1) echo 'checked'; ?>"></span></td>
-											@if(Auth::user()->usertypeid == 1)
+											@if(Auth::user()->usertype_id == 1)
 												<td class="actions text-center"><a class="edit" href="/course/{{ $course->id }}/edit">Edit</a><a class="delete" href="#delete" id="{{ $course->id }}" data-toggle="modal">Delete</a></td>
 											@endif
 										</tr>

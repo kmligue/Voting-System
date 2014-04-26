@@ -110,7 +110,7 @@
 									<select name="usertypeid" class="chosen-select chosen-transparent form-control" id="usertype" parsley-trigger="change" parsley-required="true" parsley-error-container="#selectbox">
 										<option value="">Please choose</option>
 										@foreach($usertypes as $usertype)
-											<option value="{{ $usertype->id }}" <?php if(Input::old('usertypeid') == $usertype->id) echo 'selected'; else if($user->usertypeid == $usertype->id) echo 'selected'; ?>>{{ ucwords($usertype->name) }}</option>
+											<option value="{{ $usertype->id }}" <?php if(Input::old('usertypeid') == $usertype->id) echo 'selected'; else if($user->usertype_id == $usertype->id) echo 'selected'; ?>>{{ ucwords($usertype->name) }}</option>
 										@endforeach
 									</select>
 								</div>

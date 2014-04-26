@@ -100,11 +100,11 @@ class CourseController extends \BaseController {
 
 			$course->delete();
 		} catch (Exception $e) {
-			return Redirect::to('course')->with('msg-error', 'Error deleting account.');
+			return Redirect::to('course')->with('msg-error', 'Error deleting course.');
 		}
 
 		if($course) return Redirect::to('course')->with('msg-success', 'Account successfully deleted!');
-		else return Redirect::to('course')->with('msg-error', 'Error deleting account.');
+		else return Redirect::to('course')->with('msg-error', 'Error deleting course.');
 	}
 
 

@@ -80,7 +80,7 @@ Route::filter('csrf', function()
 });
 
 Route::filter('role', function() {
-	if(Auth::user()->usertypeid != 1) {
+	if(Auth::user()->usertype_id != 1) {
 		return Redirect::to('dashboard');
 	}
 });

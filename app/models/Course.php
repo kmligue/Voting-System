@@ -4,6 +4,14 @@ class Course extends Eloquent {
 
 	protected $table = 'courses';
 
+	public function student() {
+		return $this->hasMany('Student');
+	}
+
+	public function position() {
+		return $this->hasOne('Position');
+	}
+
 	private static function hasPosition($courseid) {
 		return Position::where('courseid', '=', $courseid)->count() > 0;
 	}
@@ -46,10 +54,9 @@ class Course extends Eloquent {
 			try {
 				$position = new Position();
 
-				$position->courseid = $course->id;
 				$position->name = strtoupper($course->name) . ' - Representative';
 
-				$position->save();
+				static::find($course->id)->position()->save($position);
 			} catch (Exception $e) {
 				DB::rollback();
 				return Redirect::to('course/create')->with('msg-error', 'Error saving course.');
@@ -97,9 +104,9 @@ class Course extends Eloquent {
 		}
 
 		// delete position if exist and representative is not check
-		if(static::hasPosition($id) && !Input::has('representative')) {
+		if(static::find($id)->position && !Input::has('representative')) {
 			try {
-				$position = Position::where('courseid', '=', $id)->delete();
+				$position = Position::where('course_id', '=', $id)->delete();
 			} catch (Exception $e) {
 				DB::rollback();
 				return Redirect::to('course/'. $id .'/edit')->with('msg-error', 'Error saving course.');
@@ -107,14 +114,13 @@ class Course extends Eloquent {
 		}
 
 		// add position if not exist and representative is check
-		if(!static::hasPosition($id) && Input::has('representative')) {
+		if(!static::find($id)->position && Input::has('representative')) {
 			try {
 				$position = new Position();
 
-				$position->courseid = $course->id;
 				$position->name = strtoupper($course->name) . ' - Representative';
 
-				$position->save();
+				static::find($id)->position()->save($position);
 			} catch (Exception $e) {
 				DB::rollback();
 				return Redirect::to('course/'. $id .'/edit')->with('msg-error', 'Error saving course.');

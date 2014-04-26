@@ -25,20 +25,13 @@ class UserTypeTableSeeder extends Seeder {
 	public function run() {
 		DB::table('usertypes')->delete();
 
-		$usertypes = array(
-			array(
-				'name' => 'administrator',
-				'created_at' => new DateTime,
-				'updated_at' => new DateTime 
-			),
-			array(
-				'name' => 'guest',
-				'created_at' => new DateTime,
-				'updated_at' => new DateTime
-			)
-		);
+		UserType::create(array(
+			'name' => 'administrator'
+		));
 
-		DB::table('usertypes')->insert($usertypes);
+		UserType::create(array(
+			'name' => 'guest'
+		));
 	}
 
 }
@@ -48,19 +41,14 @@ class UserTableSeeder extends Seeder {
 	public function run() {
 		DB::table('users')->delete();
 
-		$users = array(
-			'fname' => 'km',
-			'mname' => '',
-			'lname' => 'ligue',
-			'usertypeid' => '1',
-			'username' => 'kmligue',
-			'password' => Hash::make('kmligue'),
-			'image' => 'assets/images/default.png',
-			'created_at' => new DateTime,
-			'updated_at' => new DateTime
-		);
+		$user = new User;
+		$user->fname = 'km';
+		$user->lname = 'ligue';
+		$user->username = 'kmligue';
+		$user->password = Hash::make('kmligue');
+		$user->image = '/assets/images/default.png';
 
-		DB::table('users')->insert($users);
+		UserType::find(1)->user()->save($user);
 	}
 
 }
@@ -70,22 +58,15 @@ class CourseTableSeeder extends Seeder {
 	public function run() {
 		DB::table('courses')->delete();
 
-		$courses = array(
-			array(
-				'name' => 'BSIT',
-				'description' => 'Bachelor in Science in Information Technology',
-				'created_at' => new DateTime,
-				'updated_at' => new DateTime
-			),
-			array(
-				'name' => 'BSHRM',
-				'description' => 'Bachelor in Science in Hotel and Restaurant Management',
-				'created_at' => new DateTime,
-				'updated_at' => new DateTime
-			)
-		);
+		Course::create(array(
+			'name' => 'BSIT',
+			'description' => 'Bachelor Of Science In Information Technology'
+		));
 
-		DB::table('courses')->insert($courses);
+		Course::create(array(
+			'name' => 'BSHRM',
+			'description' => 'Bachelor Of Science In Hotel And Restaurant Management'
+		));
 
 	}
 
@@ -100,14 +81,13 @@ class StudentTableSeeder extends Seeder {
 		$faker->addProvider(new Faker\Provider\Student($faker));
 
 		for($i = 0; $i < 50; $i++) {
-			Student::create(
-				array(
-					'fname' => $faker->firstName,
-					'mname' => $faker->middleName,
-					'lname' => $faker->lastName,
-					'courseid' => $faker->courseId
-				)
-			);
+			$student = new Student;
+
+			$student->fname = $faker->firstName;
+			$student->mname = $faker->middleName;
+			$student->lname = $faker->lastName;
+
+			Course::find($faker->courseId)->student()->save($student);
 		}
 	}
 }
@@ -117,13 +97,9 @@ class PositionTableSeeder extends Seeder {
 	public function run() {
 		DB::table('positions')->delete();
 
-		$positions = array(
+		Position::create(array(
 			'name' => 'President',
-			'ordinality' => 1,
-			'created_at' => new DateTime,
-			'updated_at' => new DateTime
-		);
-
-		DB::table('positions')->insert($positions);
+			'ordinality' => 1
+		));
 	}
 }

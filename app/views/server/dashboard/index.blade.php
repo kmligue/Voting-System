@@ -7,5 +7,4 @@
 		<i class="fa fa-tachometer"></i> Dashboard
 	</h2>
 </div>
-
 @stop

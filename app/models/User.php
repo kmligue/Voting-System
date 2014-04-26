@@ -5,6 +5,13 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
+	// Author::find(1)->posts()->insert(array(
+	// 	'title' => 'Title1',
+	// 	'body' => 'Body1'
+	// ));	
+
+	// Author::find(1)->posts()->get();
+
 	/**
 	 * The database table used by the model.
 	 *
@@ -12,7 +19,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'users';
 
-	protected $fillable = array('fname', 'mname', 'lname', 'usertypeid', 'username', 'password');
+	// protected $fillable = array('fname', 'mname', 'lname', 'usertypeid', 'username', 'password');
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -51,6 +58,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+	public function usertype() {
+		return $this->belongsTo('UserType');
+	}
+
 	public static function updateProfileCredentials($id) {
 	
 		$user = static::findOrFail($id);
@@ -78,10 +89,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->fname = Input::get('fname');
 		$user->mname = Input::get('mname');
 		$user->lname = Input::get('lname');
-		$user->usertypeid = Input::get('usertypeid');
 		$user->username = Input::get('username');
 
-		$user->save();
+		$user = UserType::find(Input::get('usertypeid'))->user()->save($user);
 
 		if($user) return Redirect::to('profile')->with('msg-profile-updated', 'User profile successfully updated!');
 		else return Redirect::to('profile')->with('msg-profile-error', 'Error saving user profile');
@@ -182,12 +192,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$user->fname = Input::get('fname');
 			$user->mname = Input::get('mname');
 			$user->lname = Input::get('lname');
-			$user->usertypeid = Input::get('usertypeid');
 			$user->username = Input::get('username');
 			$user->password = Hash::make(Input::get('password'));
 			$user->image = '/assets/images/' . Input::file('image')->getClientOriginalName();
 
-			$user->save();
+			$user = UserType::find(Input::get('usertypeid'))->user()->save($user);
 
 			if($user) return Redirect::to('user')->with('msg-success', 'User successfully saved!');
 			else return Redirect::to('user/create')->with('msg-error', 'Error saving data!');
@@ -248,7 +257,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->fname = Input::get('fname');
 		$user->mname = Input::get('mname');
 		$user->lname = Input::get('lname');
-		$user->usertypeid = Input::get('usertypeid');
 		$user->username = Input::get('username');
 
 		// determine if password should be change
@@ -256,7 +264,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$user->password = Hash::make(Input::get('password'));
 		}
 
-		$user->save();
+		$user = UserType::find(Input::get('usertypeid'))->user()->save($user);
 
 		if($user) return Redirect::to('user')->with('msg-success', 'User successfully updated!');
 		else return Redirect::to('user/'. $id .'/create')->with('msg-error', 'Error saving data!');

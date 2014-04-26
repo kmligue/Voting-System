@@ -15,15 +15,10 @@ class CreateUsersTable extends Migration {
 		// create users table
 		Schema::create('users', function($table) {
 			$table->increments('id');
+			$table->integer('usertype_id');
 			$table->string('fname');
 			$table->string('mname')->nullable();
 			$table->string('lname');
-			$table->unsignedInteger('usertypeid');
-			$table->foreign('usertypeid')
-					->references('id')
-					->on('usertypes')
-					->onUpdate('cascade')
-					->onDelete('restrict');
 			$table->string('username');
 			$table->string('password');
 			$table->string('image');

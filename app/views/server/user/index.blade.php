@@ -47,7 +47,7 @@
 										<th class="sort-alpha">User Type</th>
 										<th class="sort-alpha">Username</th>
 										<th class="no-sort">Profile Image</th>
-										@if(Auth::user()->usertypeid == 1)
+										@if(Auth::user()->usertype_id == 1)
 											<th class="no-sort">Actions</th>
 										@endif
 									</tr>
@@ -60,10 +60,10 @@
 											<td class="text-center">{{ ucwords($user->fname) }}</td>
 											<td class="text-center">{{ ucwords($user->mname) }}</td>
 											<td class="text-center">{{ ucwords($user->lname) }}</td>
-											<td class="text-center">{{ ucwords($user->usertype) }}</td>
+											<td class="text-center">{{ ucwords($user->usertype->name) }}</td>
 											<td class="text-center">{{ $user->username }}</td>
 											<td class="text-center"><img src="{{ $user->image }}" style="width: 30px; height: 30px;"></td>
-											@if(Auth::user()->usertypeid == 1)
+											@if(Auth::user()->usertype_id == 1)
 												<td class="actions text-center"><a class="edit" href="/user/{{ $user->id }}/edit">Edit</a><a class="delete" href="#delete" id="{{ $user->id }}" data-toggle="modal">Delete</a></td>
 											@endif
 										</tr>
