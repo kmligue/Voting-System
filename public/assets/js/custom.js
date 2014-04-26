@@ -62,6 +62,10 @@ function setActiveMenu() {
 	if(pathname == '/user') {
 		$('a[href="'+ pathname +'"]').parent().addClass('active').parent().parent().addClass('open active');	
 	}
+
+	if(pathname == '/position') {
+		$('a[href="'+ pathname +'"]').parent().addClass('active').parent().parent().addClass('open active');
+	}
 }
 
 function getAjax(destination) {

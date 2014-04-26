@@ -18,6 +18,7 @@ Route::resource('profile', 'ProfileController');
 Route::resource('president', 'PresidentController');
 Route::resource('user', 'UserController');
 Route::resource('course', 'CourseController');
+Route::resource('position', 'PositionController');
 
 // Event::listen('laravel.query', function($sql) {
 // 	var_dump($sql);

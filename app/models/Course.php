@@ -18,7 +18,7 @@ class Course extends Eloquent {
 
 	public static function saveCourse() {
 		$rules = array(
-			'name' => 'required',
+			'name' => 'required|unique:courses,name',
 			'description' => 'required'
 		);
 
@@ -38,7 +38,7 @@ class Course extends Eloquent {
 
 		try {
 
-			$course->name = Input::get('name');
+			$course->name = strtoupper(Input::get('name'));
 			$course->description = Input::get('description');
 
 			if(Input::has('representative')) $course->representative = Input::get('representative');
@@ -90,7 +90,7 @@ class Course extends Eloquent {
 
 		try {
 
-			$course->name = Input::get('name');
+			$course->name = strtoupper(Input::get('name'));
 			$course->description = Input::get('description');
 
 			if(Input::has('representative')) $course->representative = Input::get('representative');

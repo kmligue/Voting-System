@@ -1,6 +1,6 @@
 <?php
 
-class CourseController extends \BaseController {
+class PositionController extends \BaseController {
 
 	public function __construct() {
 
@@ -17,9 +17,9 @@ class CourseController extends \BaseController {
 	 */
 	public function index()
 	{
-		$courses = Course::all();
+		$positions = Position::with('course')->get();
 
-		return View::make('server.course.index')->with('courses', $courses);
+		return View::make('server.position.index')->with('positions', $positions);
 	}
 
 
@@ -30,8 +30,8 @@ class CourseController extends \BaseController {
 	 */
 	public function create()
 	{
-		// create course form
-		return View::make('server.course.create');
+		// show create form
+		return View::make('server.position.create');
 	}
 
 
@@ -42,7 +42,8 @@ class CourseController extends \BaseController {
 	 */
 	public function store()
 	{
-		return Course::saveCourse();
+		// save position
+		return Position::savePosition();
 	}
 
 
@@ -67,9 +68,10 @@ class CourseController extends \BaseController {
 	public function edit($id)
 	{
 		// show edit form
-		$course = Course::findOrFail($id);
+		$position = Position::findOrFail($id);
 
-		return View::make('server.course.edit')->with('course', $course);
+		if($position->ordinality != null) return View::make('server.position.edit')->with('position', $position);
+		else return Redirect::to('position')->with('msg-error', 'Position cannot be edited.');
 	}
 
 
@@ -81,8 +83,8 @@ class CourseController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		// update course
-		return Course::updateCourse($id);
+		// update position
+		return Position::updatePosition($id);
 	}
 
 
@@ -94,27 +96,7 @@ class CourseController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		DB::beginTransaction();
-
-		// delete course
-		try {
-			$course = Course::findOrFail($id);
-
-			$course->delete();
-		} catch (Exception $e) {
-			DB::rollback();
-			return Redirect::to('course')->with('msg-error', 'Error deleting course.');
-		}
-
-		try {
-			$course->position()->delete();
-		} catch (Exception $e) {
-			DB::rollback();
-			return Redirect::to('course')->with('msg-error', 'Error deleting course.');
-		}
-
-		DB::commit();
-		return Redirect::to('course')->with('msg-success', 'Account successfully deleted!');
+		//
 	}
 
 
