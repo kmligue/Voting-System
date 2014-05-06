@@ -15,7 +15,12 @@ class CreatePositionsTable extends Migration {
 		// create positions table
 		Schema::create('positions', function($table) {
 			$table->increments('id');
-			$table->integer('course_id')->nullable();
+			$table->unsignedInteger('course_id')->nullable();
+			$table->foreign('course_id')
+					->references('id')
+					->on('courses')
+					->onDelete('restrict')
+					->onUpdate('cascade');
 			$table->string('name');
 			$table->integer('ordinality')->nullable();
 			$table->timestamps();

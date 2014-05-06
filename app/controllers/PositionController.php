@@ -96,7 +96,30 @@ class PositionController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		DB::beginTransaction();
+
+		$position = Position::findOrFail($id);
+
+		try {
+			$position->delete();
+		} catch (Exception $e) {
+			DB::rollback();
+			return Redirect::to('position')->with('msg-error', 'Error deleting position.');
+		}
+
+		try {
+			$course = Course::findOrFail($position->course_id);
+
+			$course->representative = 0;
+
+			$course->save();
+		} catch (Exception $e) {
+			DB::rollback();
+			return Redirect::to('position')->with('msg-error', 'Error deleting.');
+		}
+
+		DB::commit();
+		return Redirect::to('position')->with('msg-success', 'Position successfully deleted!');
 	}
 
 

@@ -15,7 +15,12 @@ class CreateStudentsTable extends Migration {
 		// create students table
 		Schema::create('students', function($table) {
 			$table->increments('id');
-			$table->integer('course_id');
+			$table->unsignedInteger('course_id');
+			$table->foreign('course_id')
+					->references('id')
+					->on('courses')
+					->onDelete('restrict')
+					->onUpdate('cascade');
 			$table->string('fname');
 			$table->string('mname');
 			$table->string('lname');

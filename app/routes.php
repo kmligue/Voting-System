@@ -19,7 +19,9 @@ Route::resource('president', 'PresidentController');
 Route::resource('user', 'UserController');
 Route::resource('course', 'CourseController');
 Route::resource('position', 'PositionController');
+Route::resource('student', 'StudentController');
 
-// Event::listen('laravel.query', function($sql) {
+// Event::listen('illuminate.query', function($sql, $params) {
 // 	var_dump($sql);
+// 	var_dump($params);
 // });

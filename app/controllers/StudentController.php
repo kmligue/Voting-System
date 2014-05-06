@@ -1,6 +1,6 @@
 <?php
 
-class CourseController extends \BaseController {
+class StudentController extends \BaseController {
 
 	public function __construct() {
 
@@ -17,9 +17,9 @@ class CourseController extends \BaseController {
 	 */
 	public function index()
 	{
-		$courses = Course::all();
+		$students = Student::with('course')->get();
 
-		return View::make('server.course.index')->with('courses', $courses);
+		return View::make('server.student.index')->with('students', $students);
 	}
 
 
@@ -30,8 +30,11 @@ class CourseController extends \BaseController {
 	 */
 	public function create()
 	{
-		// create course form
-		return View::make('server.course.create');
+		// show add student form
+
+		$courses = Course::all();
+
+		return View::make('server.student.create')->with('courses', $courses);
 	}
 
 
@@ -42,7 +45,7 @@ class CourseController extends \BaseController {
 	 */
 	public function store()
 	{
-		return Course::saveCourse();
+		return Student::saveStudent();
 	}
 
 
@@ -67,9 +70,10 @@ class CourseController extends \BaseController {
 	public function edit($id)
 	{
 		// show edit form
-		$course = Course::findOrFail($id);
-
-		return View::make('server.course.edit')->with('course', $course);
+		$student = Student::findOrFail($id);
+		$courses = Course::all();
+		
+		return View::make('server.student.edit')->with('student', $student)->with('courses', $courses);
 	}
 
 
@@ -81,8 +85,7 @@ class CourseController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		// update course
-		return Course::updateCourse($id);
+		return Student::updateStudent($id);
 	}
 
 
@@ -94,20 +97,15 @@ class CourseController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		DB::beginTransaction();
-
-		// delete course
-		$course = Course::findOrFail($id);
-
 		try {
-			$course->delete();
+			$student = Student::findOrFail($id);
+
+			$student->delete();
 		} catch (Exception $e) {
-			DB::rollback();
-			return Redirect::to('course')->with('msg-error', 'Error deleting course.');
+			return Redirect::to('student')->with('msg-error', 'Error deleting student.');
 		}
 
-		DB::commit();
-		return Redirect::to('course')->with('msg-success', 'Account successfully deleted!');
+		return Redirect::to('student')->with('msg-success', 'Student successfully deleted!');
 	}
 
 

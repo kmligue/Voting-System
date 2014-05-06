@@ -170,6 +170,9 @@
             $('input[name="delete-id"]').val(id);
             $('form#delete').attr('action', 'user/' + id);
           });
+
+          //initialize chosen
+          $('.dataTables_length select').chosen({disable_search_threshold: 10});
       	})
 	</script>
 @stop

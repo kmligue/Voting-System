@@ -65,7 +65,7 @@
 						</a>
 						<ul class="dropdown-menu">
 							<li>
-								<a href="#">
+								<a href="/student">
 									<i class="fa fa-caret-right"></i> Student
 								</a>
 							</li>

@@ -5,7 +5,7 @@ class Course extends Eloquent {
 	protected $table = 'courses';
 
 	public function student() {
-		return $this->hasMany('Student');
+		return $this->hasMany('Student', 'course_id');
 	}
 
 	public function position() {

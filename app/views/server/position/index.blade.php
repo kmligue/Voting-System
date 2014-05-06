@@ -72,6 +72,29 @@
 
 		</div>
 	</div>
+
+	<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="modalConfirmLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+	        <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
+	            <h3 class="modal-title" id="modalConfirmLabel"><strong>Delete</strong> position</h3>
+	        </div>
+	        {{ Form::open(array('url' => '', 'method' => 'delete', 'id' => 'delete')) }}
+	        <div class="modal-body">
+	              
+	            {{ Form::hidden('delete-id') }}
+	            <p>Are you sure you want to delete position?</p>
+
+	        </div>
+	        <div class="modal-footer">
+	            <button class="btn btn-slategray" data-dismiss="modal" aria-hidden="true">Close</button>
+	            <input type="submit" class="btn btn-redbrown" value="Delete">
+	        </div>
+	        {{ Form::close() }}
+        </div>
+    </div>
+  </div>
 @stop
 
 @section('script')
@@ -115,6 +138,9 @@
 	            $('input[name="delete-id"]').val(id);
 	            $('form#delete').attr('action', 'position/' + id);
 	        });
+
+	        //initialize chosen
+      		$('.dataTables_length select').chosen({disable_search_threshold: 10});
 		})
 	</script>
 @stop

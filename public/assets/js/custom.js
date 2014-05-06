@@ -66,6 +66,14 @@ function setActiveMenu() {
 	if(pathname == '/position') {
 		$('a[href="'+ pathname +'"]').parent().addClass('active').parent().parent().addClass('open active');
 	}
+
+	if(pathname == '/course') {
+		$('a[href="'+ pathname +'"]').parent().addClass('active').parent().parent().addClass('open active');
+	}
+
+	if(pathname == '/student') {
+		$('a[href="'+ pathname +'"]').parent().addClass('active').parent().parent().addClass('open active');
+	}
 }
 
 function getAjax(destination) {

@@ -3,7 +3,7 @@
 @section('body')
 	<div class="pageheader">
 		<h2>
-			<i class="fa fa-bookmark"></i> Course
+			<i class="fa fa-user"></i> Student
 		</h2>
 	</div>
 
@@ -15,7 +15,7 @@
 				<section class="tile transparent">
 
 					<div class="tile-header transparent">
-						<h1><strong>User</strong> Table</h1>
+						<h1><strong>Student</strong> Table</h1>
 					</div>
 			
 					<div class="tile-body color transparent-black rounded-corners">
@@ -42,8 +42,7 @@
 									<tr>
 										<th class="sort-numeric">Id</th>
 										<th class="sort-alpha">Name</th>
-										<th class="sort-alpha">Description</th>
-										<th class="sort-alpha">Representative</th>
+										<th class="sort-numeric">Course</th>
 										@if(Auth::user()->usertype_id == 1)
 											<th class="no-sort">Actions</th>
 										@endif
@@ -51,14 +50,13 @@
 								</thead>
 								<tbody>
 
-									@foreach($courses as $course)
+									@foreach($students as $student)
 										<tr>
-											<td class="text-center">{{ $course->id }}</td>
-											<td class="text-center">{{ ucwords($course->name) }}</td>
-											<td class="text-center">{{ ucwords($course->description) }}</td>
-											<td class="text-center"><span class="check-toggler <?php if($course->representative == 1) echo 'checked'; ?>"></span></td>
+											<td class="text-center">{{ $student->id }}</td>
+											<td class="text-center">{{ ucwords($student->fname) . ' ' . ucwords($student->mname) . ' ' . ucwords($student->lname) }}</td>
+											<td class="text-center">{{ $student->course->name . ' - ' . $student->course->description }}</td>
 											@if(Auth::user()->usertype_id == 1)
-												<td class="actions text-center"><a class="edit" href="/course/{{ $course->id }}/edit">Edit</a><a class="delete" href="#delete" id="{{ $course->id }}" data-toggle="modal">Delete</a></td>
+												<td class="actions text-right"><a class="edit" href="/student/{{ $student->id }}/edit">Edit</a><a class="delete" href="#delete" id="{{ $student->id }}" data-toggle="modal">Delete</a></td>
 											@endif
 										</tr>
 									@endforeach
@@ -80,13 +78,13 @@
         <div class="modal-content">
 	        <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">Close</button>
-	            <h3 class="modal-title" id="modalConfirmLabel"><strong>Delete</strong> course</h3>
+	            <h3 class="modal-title" id="modalConfirmLabel"><strong>Delete</strong> student</h3>
 	        </div>
 	        {{ Form::open(array('url' => '', 'method' => 'delete', 'id' => 'delete')) }}
 	        <div class="modal-body">
 	              
 	            {{ Form::hidden('delete-id') }}
-	            <p>Are you sure you want to delete course?</p>
+	            <p>Are you sure you want to delete student?</p>
 
 	        </div>
 	        <div class="modal-footer">
@@ -128,7 +126,7 @@
       		oTable02.fnSetColumnVis(0, false);
 
       		// append add row button to table
-      		var addRowLink = '<a href="course/create" id="addRow" class="btn btn-green btn-xs add-row">Add Course</a>'
+      		var addRowLink = '<a href="student/create" id="addRow" class="btn btn-green btn-xs add-row">Add Student</a>'
       		$('#inlineEditDataTable_wrapper').append(addRowLink);
 
       		var nEditing = null;
@@ -138,10 +136,10 @@
 	            var id = $(this).attr('id');
 	            
 	            $('input[name="delete-id"]').val(id);
-	            $('form#delete').attr('action', 'course/' + id);
+	            $('form#delete').attr('action', 'student/' + id);
 	        });
 
-	        //initialize chosen
+	         //initialize chosen
       		$('.dataTables_length select').chosen({disable_search_threshold: 10});
 		})
 	</script>
