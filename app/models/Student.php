@@ -8,6 +8,10 @@ class Student extends Eloquent {
 		return $this->belongsTo('Course');
 	}
 
+	public function candidate() {
+		return $this->hasMany('Candidate');
+	}
+
 	public static function saveStudent() {
 		$rules = array(
 			'name' => 'required|alpha_spaces|unique:students,fname,null,id,mname,'.Input::get('mname').',lname,'.Input::get('lname'),

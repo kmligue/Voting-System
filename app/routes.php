@@ -20,6 +20,8 @@ Route::resource('user', 'UserController');
 Route::resource('course', 'CourseController');
 Route::resource('position', 'PositionController');
 Route::resource('student', 'StudentController');
+Route::resource('candidate', 'CandidateController');
+Route::resource('generate', 'GeneratePasswordController');
 
 // Event::listen('illuminate.query', function($sql, $params) {
 // 	var_dump($sql);

@@ -8,6 +8,10 @@ class Position extends Eloquent {
 		return $this->belongsTo('course');
 	}
 
+	public function candidate() {
+		return $this->hasMany('Candidate');
+	}
+
 	public static function savePosition() {
 		$rules = array(
 			'name' => 'required|alpha_dash',

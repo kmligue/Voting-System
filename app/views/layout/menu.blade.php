@@ -80,7 +80,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="/candidate">
 									<i class="fa fa-caret-right"></i> Candidate
 								</a>
 							</li>
@@ -89,36 +89,12 @@
 									<i class="fa fa-caret-right"></i> System User
 								</a>
 							</li>
-						</ul>
-					</li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="fa fa-cogs"></i> Transaction <b class="fa fa-plus dropdown-plus"></b>
-						</a>
-
-						<ul class="dropdown-menu">
 							<li>
-								<a href="#">
-									<i class="fa fa-caret-right"></i> UI Elements
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="fa fa-caret-right"></i> Typography
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<i class="fa fa-caret-right"></i> Tiles
+								<a href="/generate">
+									<i class="fa fa-caret-right"></i> Generate Student Password
 								</a>
 							</li>
 						</ul>
-					</li>
-
-					<li>
-						<a href="#">
-							<i class="fa fa-folder-open"></i> Inquiry
-						</a>
 					</li>
 					<li>
 						<a href="#">
