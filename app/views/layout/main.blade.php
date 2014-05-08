@@ -15,11 +15,11 @@
 
 		{{ HTML::style('/assets/js/vendor/rickshaw/css/rickshaw.min.css') }}
 		{{ HTML::style('/assets/js/vendor/morris/css/morris.css') }}
-		{{ HTML::style('/assets/js/vendor/tabdrop/css/tabdrop.css') }}
 		{{ HTML::style('/assets/js/vendor/summernote/css/summernote.css') }}
 		{{ HTML::style('/assets/js/vendor/summernote/css/summernote-bs3.css') }}
 		{{ HTML::style('/assets/js/vendor/chosen/css/chosen.min.css') }}
 		{{ HTML::style('/assets/js/vendor/chosen/css/chosen-bootstrap.css') }}
+		{{ HTML::style('/assets/js/vendor/tabdrop/css/tabdrop.css') }}
 		{{ HTML::style('/assets/js/vendor/datatables/css/dataTables.bootstrap.css') }}
 		{{ HTML::style('/assets/js/vendor/datatables/css/ColVis.css') }}
 		{{ HTML::style('/assets/js/vendor/datatables/css/TableTools.css') }}
@@ -31,7 +31,7 @@
 		{{ HTML::style('/assets/css/custom.css') }}
 	</head>
 	<body class="bg-1">
-
+	
 		<div class="mask"><div id="loader"></div></div>
 
 		<div id="wrap">
@@ -59,9 +59,11 @@
     <script src="/assets/js/vendor/datatables/tabletools/ZeroClipboard.js"></script>
     <script src="/assets/js/vendor/datatables/tabletools/dataTables.tableTools.min.js"></script>
     <script src="/assets/js/vendor/datatables/dataTables.bootstrap.js"></script>
+    <script src="assets/js/vendor/tabdrop/bootstrap-tabdrop.min.js"></script>
 
     <script type="text/javascript" src="/assets/js/vendor/chosen/chosen.jquery.min.js"></script>
     <script type="text/javascript" src="/assets/js/vendor/parsley/parsley.min.js"></script>
+    <script src="assets/js/vendor/wizard/jquery.bootstrap.wizard.min.js"></script>
 
     <script src="/assets/js/minimal.min.js"></script>
 

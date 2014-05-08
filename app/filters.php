@@ -84,3 +84,9 @@ Route::filter('role', function() {
 		return Redirect::to('dashboard');
 	}
 });
+
+Route::filter('studentAuth', function()
+{
+	if (Auth::guest()) return Redirect::guest('/');
+});
+

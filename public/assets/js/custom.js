@@ -74,6 +74,14 @@ function setActiveMenu() {
 	if(pathname == '/student') {
 		$('a[href="'+ pathname +'"]').parent().addClass('active').parent().parent().addClass('open active');
 	}
+
+	if(pathname == '/candidate') {
+		$('a[href="'+ pathname +'"]').parent().addClass('active').parent().parent().addClass('open active');
+	}
+
+	if(pathname == '/generate') {
+		$('a[href="'+ pathname +'"]').parent().addClass('active').parent().parent().addClass('open active');
+	}
 }
 
 function getAjax(destination) {

@@ -15,7 +15,7 @@
 				<section class="tile transparent">
 
 					<div class="tile-header transparent">
-						<h1><strong>User</strong> Table</h1>
+						<h1><strong>Candidate</strong> Table</h1>
 					</div>
 			
 					<div class="tile-body color transparent-black rounded-corners">
