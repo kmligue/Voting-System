@@ -9,7 +9,7 @@
 		<div class="navbar-collapse">
 			
 			<div class="nav navbar-nav side-nav side-ad" id="sidebar" tabindex="5000" style="overflow: hidden; outline: none;">
-				
+		
 			</div>
 			
 		</div>
@@ -25,61 +25,21 @@
 
 				<div class="main">
 					<div class="row tile color transparent-black">
-								
-						<div class="col-lg-4 col-md-4" style="margin-top: 10px;">
-							<div class="panel panel-transparent-black">
-								<div class="panel-heading">
-									<h3 class="panel-title">Greensea Panel title</h3>
+						@foreach($candidates as $candidate)
+							@if($candidate->position_id == $position->id)
+								<div class="col-lg-4 col-md-4 candidate" style="margin-top: 10px; margin-right: 10px; cursor: pointer;">
+									<input type="radio" style="display: block;" name="{{ $position->name }}">
+									<div class="panel panel-transparent-black">
+										<div class="panel-heading">
+											<h3 class="panel-title">{{ $candidate->fname . ' ' . $candidate->mname . ' ' . $candidate->lname }}</h3>
+										</div>
+										<div class="panel-body">
+											<img src="{{ $candidate->imagepath }}" style="width: 411px;">
+										</div>
+									</div>
 								</div>
-								<div class="panel-body">
-									Panel content
-								</div>
-							</div>
-						</div>
-
-						<div class="col-lg-4 col-md-4" style="margin-top: 10px;">
-							<div class="panel panel-transparent-black">
-								<div class="panel-heading">
-									<h3 class="panel-title">Greensea Panel title</h3>
-								</div>
-								<div class="panel-body">
-									Panel content
-								</div>
-							</div>
-						</div>
-
-						<div class="col-lg-4 col-md-4" style="margin-top: 10px;">
-							<div class="panel panel-transparent-black">
-								<div class="panel-heading">
-									<h3 class="panel-title">Greensea Panel title</h3>
-								</div>
-								<div class="panel-body">
-									Panel content
-								</div>
-							</div>
-						</div>
-
-						<div class="col-lg-4 col-md-4" style="margin-top: 10px;">
-							<div class="panel panel-transparent-black">
-								<div class="panel-heading">
-									<h3 class="panel-title">Greensea Panel title</h3>
-								</div>
-								<div class="panel-body">
-									Panel content
-								</div>
-							</div>
-						</div>
-
-						<div class="col-lg-4 col-md-4" style="margin-top: 10px;">
-							<div class="panel panel-transparent-black">
-								<div class="panel-heading">
-									<h3 class="panel-title">Greensea Panel title</h3>
-								</div>
-								<div class="panel-body">
-									Panel content
-								</div>
-							</div>
-						</div>
+							@endif
+						@endforeach		
 
 					</div>
 				</div>

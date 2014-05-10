@@ -12,8 +12,11 @@ class HomeController extends \BaseController {
 		$positions = Position::orderBy('ordinality', 'ASC')
 							->get();
 		$student = Student::findOrFail(Session::get('id'));
+		$candidates = Candidate::join('students', 'students.id', '=', 'candidates.student_id')
+								->select('students.fname', 'students.mname', 'students.lname', 'candidates.position_id', 'candidates.imagepath')
+								->get();
 
-		return View::make('client.home.index')->with('positions', $positions)->with('student', $student);
+		return View::make('client.home.index')->with('positions', $positions)->with('student', $student)->with('candidates', $candidates);
 	}
 
 

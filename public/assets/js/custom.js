@@ -49,6 +49,21 @@ $(function() {
 
 		return false
 	});
+
+	$('.candidate').on('click', function() {
+		var isCheck = $(this).find('input[type="radio"]').is(':checked')
+		
+		if (!isCheck) {
+			$(this).addClass('candidate-selected');
+			$(this).find('input[type="radio"]').prop('checked', true);
+			$(this).append('<img class="check" src="/assets/images/check.png" style="position: absolute; bottom: 20px;">');
+		}
+		else {
+			$(this).removeClass('candidate-selected');
+			$(this).find('input[type="radio"]').prop('checked', false);
+			$(this).find('img.check').remove();
+		}
+	})
 });
 
 // sets the active/current menu

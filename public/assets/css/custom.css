@@ -20,3 +20,7 @@ body #content .tile.transparent-black .form-control[readonly] {
 	background-position: left top;
 	background-size: auto, cover;
 }
+
+.candidate-selected {
+	opacity: 0.5;
+}
