@@ -13,3 +13,10 @@ body #content .tile.transparent-black .form-control[readonly] {
 .profile-pic {
 	margin-bottom: 10px;
 }
+
+.side-ad {
+	background-image: url(../images/220x2400.png);
+	background-repeat: no-repeat, no-repeat;
+	background-position: left top;
+	background-size: auto, cover;
+}
