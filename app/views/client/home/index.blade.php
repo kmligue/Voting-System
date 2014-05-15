@@ -16,28 +16,36 @@
 	</div>
 
 	<div class="container" id="content" style="overflow: hidden; outline: none; 265px;">
-		<div class="form-group"> 
-		
+
 		@foreach($positions as $position)
 			@if($position->course_id == null || $position->course_id == $student->course_id)
-				<label>{{ $position->name }}</label>
+				<div class="pageheader">
+					<h2><strong>{{ $position->name }}</strong></h2>
+				</div>
 
-				<div class="col-sm-8">
-					@foreach($candidates as $candidate)
-						@if($candidate->position_id == $position->id)
-							<div class="radio radio-transparent">
-								<input type="radio" id="{{ $candidate->id }}" name="{{ $position->name }}">
-								<label for="{{ $candidate->id }}">{{ ucwords($candidate->fname) . ' ' . ucwords($candidate->mname) . ' ' . ucwords($candidate->lname) }}</label>
-								<img src="{{ $candidate->imagepath }}" style="width: 125px;">
-							</div>
-						@endif
-					@endforeach		
+				<div class="main">
+					<div class="row tile color transparent-black">
+						@foreach($candidates as $candidate)
+							@if($candidate->position_id == $position->id)
+								<div class="col-lg-4 col-md-4 candidate" style="margin-top: 10px; margin-right: 10px; cursor: pointer;">
+									<div class="panel panel-transparent-black" style="width: 370px;">
 
+										<div class="panel-body">
+											<input type="radio" style="display: none;" name="{{ $position->name }}">
+											<div style="float: left; margin-right: 10px;"><img src="{{ $candidate->imagepath }}" style="width: 125px;"></div>
+											<div><h3 class="panel-title">{{ $candidate->fname . ' ' . $candidate->mname . ' ' . $candidate->lname }}</h3></div>
+										</div>
+
+									</div>
+								</div>
+							@endif
+						@endforeach		
+
+					</div>
 				</div>
 			@endif
 		@endforeach
 
-		</div>
 	</div>
 @stop
 

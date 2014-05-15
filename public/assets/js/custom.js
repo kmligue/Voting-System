@@ -52,14 +52,19 @@ $(function() {
 
 	$('.candidate').on('click', function() {
 		var isCheck = $(this).find('input[type="radio"]').is(':checked')
+		var radioName = $(this).find('input[type="radio"]').attr('name');
 		
 		if (!isCheck) {
-			$(this).addClass('candidate-selected');
+			$('img[name="'+ radioName +'"]').each(function(i) {
+				//$(this).parent().removeClass('candidate-selected');
+				$(this).remove();
+			});
+			//$(this).addClass('candidate-selected');
 			$(this).find('input[type="radio"]').prop('checked', true);
-			$(this).append('<img class="check" src="/assets/images/check.png" style="position: absolute; bottom: 20px;">');
+			$(this).append('<img name="'+ radioName +'" class="check" src="/assets/images/check.png" style="position: absolute; bottom: 42px; left: 210px; height: 80px;">');
 		}
 		else {
-			$(this).removeClass('candidate-selected');
+			//$(this).removeClass('candidate-selected');
 			$(this).find('input[type="radio"]').prop('checked', false);
 			$(this).find('img.check').remove();
 		}
