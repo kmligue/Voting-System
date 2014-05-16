@@ -6,6 +6,13 @@ body #content .tile.transparent-black .form-control[readonly] {
 	color: white;
 }
 
+body.bg-6 {
+    background-image: url(../images/noise.png), url(../images/backgrounds/6.jpg);
+    background-repeat: repeat, no-repeat;
+    background-position: left top;
+    background-size: auto, cover; 
+}
+
 .tab-content > div {
 	padding: 5px 0;
 }
