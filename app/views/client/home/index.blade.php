@@ -4,25 +4,23 @@
 	
 	@foreach($positions as $position)
 		@if($position->course_id == null || $position->course_id == $student->course_id)
-			<div>
-				<h2><strong>{{ $position->name }}</strong></h2>
-			</div>
+			<div class="list-group" style="margin-top: 20px;">
+				<a class="list-group-item active">
+					<h2>{{ $position->name }}</h2>
+				</a>
 
-			<div>
 				@foreach($candidates as $candidate)
 					@if($candidate->position_id == $position->id)
-						<div>
-
-							<div>
-								<input type="radio" style="display: none;" name="{{ $position->name }}">
-								<div><img class="img-circle" src="{{ $candidate->imagepath }}" style="width: 125px;"></div>
-								<div><h3>{{ $candidate->fname . ' ' . $candidate->mname . ' ' . $candidate->lname }}</h3></div>
-							</div>
-
-						</div>
+						<a class="list-group-item">
+							<input type="radio" id="{{ $candidate->id }}" name="{{ $position->name }}" style="width: 1.5em; height: 1.5em;">
+							<label for="{{ $candidate->id }}">
+								<img class="img-circle" src="{{ $candidate->imagepath }}" style="width: 125px;">
+								{{ $candidate->fname . ' ' . $candidate->mname . ' ' . $candidate->lname }}
+							</label>
+						</a>
 					@endif
-				@endforeach		
-			</div>
+				@endforeach	
+			</div>	
 		@endif
 	@endforeach
 
