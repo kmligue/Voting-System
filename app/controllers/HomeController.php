@@ -2,6 +2,13 @@
 
 class HomeController extends \BaseController {
 
+	public function __construct() {
+
+		// perform auth check
+		$this->beforeFilter('studentGuest');
+
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,6 +16,10 @@ class HomeController extends \BaseController {
 	 */
 	public function index()
 	{
+		// check if already voted
+		
+
+
 		$positions = Position::orderBy('ordinality', 'ASC')
 							->get();
 		$student = Student::findOrFail(Session::get('id'));
@@ -27,7 +38,29 @@ class HomeController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$votes = Input::all();
+		$id = '';
+		
+		foreach ($votes as $key => $value) {
+			if(empty($id))
+			{
+				$id .= $value;
+			}
+			else 
+			{
+				$id .= ', ' . $value;
+			}
+		}
+
+		$id = explode(',', $id);
+		$candidates = Candidate::whereIn('candidates.id', $id)
+								->join('students', 'students.id', '=', 'candidates.student_id')
+								->join('positions', 'positions.id', '=', 'candidates.position_id')
+								->select('candidates.id', 'positions.name', 'candidates.imagepath', 'students.fname', 'students.mname', 'students.lname')
+								->orderBy('positions.ordinality', 'asc')
+								->get();
+		
+		return View::make('client.home.create')->with('candidates', $candidates);
 	}
 
 
@@ -38,7 +71,28 @@ class HomeController extends \BaseController {
 	 */
 	public function store()
 	{
+		$votes = Input::all();
+		unset($votes['_token']);
+		$student_id = Session::get('id');
 
+		DB::beginTransaction();
+
+		try {
+			foreach ($votes as $key => $value) {
+				DB::table('votes')->insertGetId(
+					array('student_id' => $student_id, 'candidate_id' => $value)
+				);
+			}
+		} catch (Exception $e) {
+			DB::rollback();
+			return Redirect::to('/home')->with('error', 'Error submitting votes!');
+		}
+
+		DB::commit();
+
+		Session::forget('id');
+		return Redirect::to('/');
+		
 	}
 
 
