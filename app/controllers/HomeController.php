@@ -5,11 +5,7 @@ class HomeController extends \BaseController {
 	public function __construct() {
 
 		// perform auth check
-<<<<<<< HEAD
-		$this->beforeFilter('studentAuth');
-=======
 		$this->beforeFilter('studentGuest');
->>>>>>> 8f45f0aabfc0499a610a21ec9f419423bbcb4de2
 
 	}
 
