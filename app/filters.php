@@ -87,6 +87,11 @@ Route::filter('role', function() {
 
 Route::filter('studentAuth', function()
 {
-	if (Auth::guest()) return Redirect::guest('/');
+	if (Session::has('id')) return Redirect::to('/home');
+});
+
+Route::filter('studentGuest', function() 
+{
+	if(!Session::has('id')) return Redirect::to('/');
 });
 
