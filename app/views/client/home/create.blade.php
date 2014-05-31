@@ -8,8 +8,8 @@
 	{{ Form::open(array('url' => 'home/' . Session::get('id'), 'method' => 'put', 'style' => 'margin-bottom: 20px;')) }}
 		@foreach($candidates as $candidate)
 			<div class="list-group" style="margin-top: 20px;">
-				<a class="list-group-item active">
-					<h2>{{ $candidate->name }}</h2>
+				<a class="list-group-item active" style="background: #CA4252;">
+					<h3>{{ $candidate->name }}</h3>
 				</a>
 				<a class="list-group-item">
 					<input type="radio" checked id="{{ $candidate->id }}" value="{{ $candidate->id }}" name="{{ $candidate->name }}" style="display: none;">

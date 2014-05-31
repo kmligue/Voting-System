@@ -6,6 +6,7 @@ class HomeController extends \BaseController {
 
 		// perform auth check
 		$this->beforeFilter('studentGuest');
+		$this->beforeFilter('checkIfVoted');
 
 	}
 
@@ -50,6 +51,7 @@ class HomeController extends \BaseController {
 	public function store()
 	{
 		$votes = Input::all();
+		unset($votes['_token']);
 		$id = '';
 		
 		foreach ($votes as $key => $value) {
@@ -64,6 +66,7 @@ class HomeController extends \BaseController {
 		}
 
 		$id = explode(',', $id);
+		
 		$candidates = Candidate::whereIn('candidates.id', $id)
 								->join('students', 'students.id', '=', 'candidates.student_id')
 								->join('positions', 'positions.id', '=', 'candidates.position_id')
@@ -110,16 +113,20 @@ class HomeController extends \BaseController {
 	{
 		$votes = Input::all();
 		unset($votes['_token']);
+		unset($votes['_method']);
 		$student_id = Session::get('id');
 
 		DB::beginTransaction();
-
+		
 		try {
 			foreach ($votes as $key => $value) {
 				DB::table('votes')->insertGetId(
 					array('student_id' => $student_id, 'candidate_id' => $value)
 				);
 			}
+
+			// DB::table('students')
+
 		} catch (Exception $e) {
 			DB::rollback();
 			return Redirect::to('/home')->with('error', 'Error submitting votes!');

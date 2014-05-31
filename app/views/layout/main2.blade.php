@@ -13,7 +13,7 @@
 
 		{{ HTML::style('/assets/css/custom.css') }}
 	</head>
-	<body class="bg-6">
+	<body class="no-bg">
 	
 		<div class="row">
 			<div class="container">

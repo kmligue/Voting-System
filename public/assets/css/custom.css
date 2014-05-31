@@ -8,9 +8,12 @@ body #content .tile.transparent-black .form-control[readonly] {
 
 body.bg-6 {
     background-image: url(../images/noise.png), url(../images/backgrounds/6.jpg);
-    background-repeat: repeat, no-repeat;
+    background-repeat: repeat, repeat;
     background-position: left top;
     background-size: auto, cover; 
+}
+body.no-bg {
+    background: #333030; 
 }
 
 .tab-content > div {

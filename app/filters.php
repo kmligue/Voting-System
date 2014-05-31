@@ -95,3 +95,15 @@ Route::filter('studentGuest', function()
 	if(!Session::has('id')) return Redirect::to('/');
 });
 
+Route::filter('checkIfVoted', function() {
+	$isVoted = DB::table('students')->where('isVoted', '=', '1')
+								->where('id', '=', Session::get('id'))
+								->count();
+
+	if($isVoted > 0)
+	{
+		Session::forget('id');
+		return Redirect::to('/')->with('error', 'Already voted!');
+	}
+});
+

@@ -13,8 +13,8 @@
 		@foreach($positions as $position)
 			@if($position->course_id == null || $position->course_id == $student->course_id)
 				<div class="list-group" style="margin-top: 20px;">
-					<a class="list-group-item active">
-						<h2>{{ $position->name }}</h2>
+					<a class="list-group-item active" style="background: #CA4252;">
+						<h3>{{ $position->name }}</h3>
 					</a>
 
 					@foreach($candidates as $candidate)
