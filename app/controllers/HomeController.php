@@ -2,6 +2,13 @@
 
 class HomeController extends \BaseController {
 
+	public function __construct() {
+
+		// perform auth check
+		$this->beforeFilter('studentAuth');
+
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
