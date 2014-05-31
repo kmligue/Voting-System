@@ -1,7 +1,11 @@
 @extends('layout.main2')
 
 @section('content')
-	{{ Form::open(array('url' => 'home', 'method' => 'post', 'style' => 'margin-bottom: 20px;')) }}
+	@if(count($candidates) >= 1)
+		<div class="alert alert-info" style="margin: 20px;"><strong>Your candidates!</strong></div>
+	@endif
+
+	{{ Form::open(array('url' => 'home/' . Session::get('id'), 'method' => 'put', 'style' => 'margin-bottom: 20px;')) }}
 		@foreach($candidates as $candidate)
 			<div class="list-group" style="margin-top: 20px;">
 				<a class="list-group-item active">
@@ -17,7 +21,11 @@
 			</div>
 		@endforeach
 
-		<input type="submit" value="Vote" class="btn btn-danger" style="float: right;">
+		@if(count($candidates) <= 0)
+			<div class="alert alert-info" style="margin: 20px;"><strong>You have not voted any candidate!</strong></div>
+		@endif
+
+		<input type="submit" value="<?php echo count($candidates) <= 0 ?  'Continue' :  'Vote'; ?>" class="btn btn-danger" style="float: right;">
 		<div style="clear: both;"></div>
 	{{ Form::close() }}
 @stop
