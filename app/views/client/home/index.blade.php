@@ -4,12 +4,12 @@
 	<?php
 
 		if(Session::has('error')) {
-			echo Session::get('error');
+			echo '<div class="alert alert-danger"><strong>'. Session::get('error') .'</strong></div>';
 		}
 
 	?>
-
-	{{ Form::open(array('url' => 'home/create', 'method' => 'get', 'style' => 'margin-bottom: 20px;')) }}
+	
+	{{ Form::open(array('url' => 'home', 'method' => 'post', 'style' => 'margin-bottom: 20px;')) }}
 		@foreach($positions as $position)
 			@if($position->course_id == null || $position->course_id == $student->course_id)
 				<div class="list-group" style="margin-top: 20px;">
