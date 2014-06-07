@@ -16,7 +16,13 @@ class DashboardController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('server.dashboard.index');
+		$tallies = DB::table('v_tally')
+					->get();
+
+		$positions = Position::orderBy('ordinality', 'ASC')
+							->get();
+
+		return View::make('server.dashboard.index')->with('tallies', $tallies)->with('positions', $positions);
 	}
 
 	/**

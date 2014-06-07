@@ -30,7 +30,7 @@
 
 		{{ HTML::style('/assets/css/custom.css') }}
 	</head>
-	<body class="bg-6">
+	<body class="bg-1">
 	
 		<div class="mask"><div id="loader"></div></div>
 
