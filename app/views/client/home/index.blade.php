@@ -16,18 +16,21 @@
 					<a class="list-group-item active" style="background: #CA4252;">
 						<h3>{{ $position->name }}</h3>
 					</a>
-
+					<a class="list-group-item">
 					@foreach($candidates as $candidate)
 						@if($candidate->position_id == $position->id)
-							<a class="list-group-item">
-								<input type="radio" id="{{ $candidate->id }}" value="{{ $candidate->id }}" name="{{ $position->name }}" style="width: 1.5em; height: 1.5em;">
-								<label for="{{ $candidate->id }}">
-									<img class="img-circle" src="{{ $candidate->imagepath }}" style="width: 125px;">
+							<label for="{{ $candidate->id }}" style="text-align: center; margin: 35px;">
+								<img class="img-circle" src="{{ $candidate->imagepath }}" style="width: 125px;">
+								<div>
 									{{ $candidate->fname . ' ' . $candidate->mname . ' ' . $candidate->lname }}
-								</label>
-							</a>
+									<div>
+										<input type="radio" id="{{ $candidate->id }}" value="{{ $candidate->id }}" name="{{ $position->name }}" style="width: 1.5em; height: 1.5em;">
+									</div>
+								</div>
+							</label>
 						@endif
 					@endforeach	
+					</a>
 				</div>	
 			@endif
 		@endforeach

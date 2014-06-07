@@ -16,7 +16,8 @@ class StudentLoginController extends \BaseController {
 	 */
 	public function index()
 	{
-		$students = Student::all();
+		$students = Student::where('isVoted', '=', '0')
+							->get();
 
 		return View::make('client.login.index')->with('students', $students);
 	}

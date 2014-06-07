@@ -125,7 +125,9 @@ class HomeController extends \BaseController {
 				);
 			}
 
-			// DB::table('students')
+			DB::table('students')
+				->where('id', $student_id)
+				->update(array('isVoted' => 1));
 
 		} catch (Exception $e) {
 			DB::rollback();
@@ -135,7 +137,7 @@ class HomeController extends \BaseController {
 		DB::commit();
 
 		Session::forget('id');
-		return Redirect::to('/');
+		return Redirect::to('/')->with('voteSuccess', 'You have successfully voted');
 	}
 
 

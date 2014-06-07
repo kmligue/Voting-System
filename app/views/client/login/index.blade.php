@@ -24,7 +24,10 @@
 							else if($errors->has('student')) {
 								echo '<p>' . $errors->first('student') . '</p>';
 							}
-
+							else if(Session::has('voteSuccess')) {
+								echo '<p>' . Session::get('voteSuccess') . '</p>';
+							}
+							
 						?>
 
 						<div class="form-group">

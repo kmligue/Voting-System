@@ -11,11 +11,15 @@
 				<a class="list-group-item active" style="background: #CA4252;">
 					<h3>{{ $candidate->name }}</h3>
 				</a>
-				<a class="list-group-item">
-					<input type="radio" checked id="{{ $candidate->id }}" value="{{ $candidate->id }}" name="{{ $candidate->name }}" style="display: none;">
-					<label for="{{ $candidate->id }}">
+				<a class="list-group-item" style="text-align: center;">
+					<label for="{{ $candidate->id }}" style="text-align: center; margin: 35px;">
 						<img class="img-circle" src="{{ $candidate->imagepath }}" style="width: 125px;">
-						{{ $candidate->fname . ' ' . $candidate->mname . ' ' . $candidate->lname }}
+						<div>
+							{{ $candidate->fname . ' ' . $candidate->mname . ' ' . $candidate->lname }}
+							<div>
+								<input type="radio" checked id="{{ $candidate->id }}" value="{{ $candidate->id }}" name="{{ $candidate->name }}" style="display: none;">
+							</div>
+						</div>
 					</label>
 				</a>
 			</div>
