@@ -67,7 +67,7 @@
 
     <script src="/assets/js/minimal.min.js"></script>
 
-     @yield('script')
+    	@yield('script')
 
     <script src="/assets/js/custom.js"></script>
 	</body>

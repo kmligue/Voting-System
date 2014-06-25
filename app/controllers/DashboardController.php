@@ -16,13 +16,24 @@ class DashboardController extends \BaseController {
 	 */
 	public function index()
 	{
-		$tallies = DB::table('v_tally')
-					->get();
+		if(Request::ajax()) {
+			$tallies = DB::table('v_tally')
+						->get();
 
-		$positions = Position::orderBy('ordinality', 'ASC')
-							->get();
+			return Response::json($tallies);
+		}
+		else {
+			$positions = Position::orderBy('ordinality', 'ASC')
+								->get();
 
-		return View::make('server.dashboard.index')->with('tallies', $tallies)->with('positions', $positions);
+			$candidates = Candidate::join('students', 'candidates.student_id', '=', 'students.id')
+									->select('students.fname', 'students.mname', 'students.lname', 'candidates.id', 'candidates.position_id')
+									->get();
+
+			return View::make('server.dashboard.index')->with('positions', $positions)->with('candidates', $candidates);
+		}
+
+		
 	}
 
 	/**
@@ -53,7 +64,7 @@ class DashboardController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		
 	}
 
 	/**
