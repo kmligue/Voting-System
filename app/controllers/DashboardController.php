@@ -43,7 +43,14 @@ class DashboardController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$voted = DB::table('students')
+					->where('isVoted', '=', '1')
+					->count();
+
+		$population = DB::table('students')
+						->count();
+
+		return Response::json(array('voted' => $voted, 'population' => $population));
 	}
 
 	/**

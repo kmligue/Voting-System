@@ -13,6 +13,7 @@
 		<i class="fa fa-tachometer"></i> Dashboard
 	</h2>
 	<section class="tile transparent">
+		<h1><span class="voted">0</span> out of <span class="population">0</span> voters</h1>
 		@foreach($positions as $position)
 			<div class="tile-body color transparent-white rounded-bottom-corners col-lg-11" style="margin: 30px;">
 				<div class="row">
@@ -30,7 +31,7 @@
 							</div>
 							<div class="status pull-right">
 								
-								<span id="{{ $candidate->id }}" class="animate-number" data-value="0.00" data-animation-duration="1500">0.00</span>%
+								<span id="{{ $candidate->id }}" class="animate-number" data-value="0.00" data-animation-duration="1500">0.00</span>
 							</div>
 							<div class="clearfix"></div>
 							<div class="progress progress-little">
@@ -67,13 +68,30 @@
 						        } 
 
 						        if(k == 'percentage') {
-						        	$('span#' + id).html(v);
+						        	$('span#' + id).html(v + '%');
 						        	$('span#' + id).attr('data-value', v);
 						        	$('div#' + id + 'a').css('width', v + '%');
 						        	$('div#' + id + 'a').attr('data-percentage', v + '%');
 						        }
 
+						        if(k == 'cnt') {
+						        	$('span#' + id).append(' - ' + v + ' vote/s');
+						        }
+
 						    });
+						});
+					}
+				});
+			}, 2000);
+
+			var j = setInterval(function() {
+				$.ajax({
+					url: '/dashboard/create',
+					success: function(data) {
+
+						$.each(data, function(k, v) {
+							if(k == 'voted') $('span.voted').html(v);
+							if(k == 'population') $('span.population').html(v);
 						});
 					}
 				});
