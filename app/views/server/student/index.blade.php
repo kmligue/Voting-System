@@ -43,6 +43,7 @@
 										<th class="sort-numeric">Id</th>
 										<th class="sort-alpha">Name</th>
 										<th class="sort-numeric">Course</th>
+										<th class="sort-numeric">Voted</th>
 										@if(Auth::user()->usertype_id == 1)
 											<th class="no-sort">Actions</th>
 										@endif
@@ -55,6 +56,7 @@
 											<td class="text-center">{{ $student->id }}</td>
 											<td class="text-center">{{ ucwords($student->fname) . ' ' . ucwords($student->mname) . ' ' . ucwords($student->lname) }}</td>
 											<td class="text-center">{{ $student->course->name . ' - ' . $student->course->description }}</td>
+											<td class="text-center"><?php echo $student->isVoted == '1' ? '<i class="fa fa-check" style="color: rgb(6, 226, 6);"></i>' : '<span style="color: rgb(178, 26, 26); font-weight: bolder;">X</span>'; ?></td>
 											@if(Auth::user()->usertype_id == 1)
 												<td class="actions text-right"><a class="edit" href="/student/{{ $student->id }}/edit">Edit</a><a class="delete" href="#delete" id="{{ $student->id }}" data-toggle="modal">Delete</a></td>
 											@endif
@@ -126,7 +128,7 @@
       		oTable02.fnSetColumnVis(0, false);
 
       		// append add row button to table
-      		var addRowLink = '<a href="student/create" id="addRow" class="btn btn-green btn-xs add-row">Add Student</a>'
+      		var addRowLink = '<a href="student/create" id="addRow" class="btn btn-green btn-xs add-row">Add Student</a><a type="button" href="/print/notvoted" class="btn btn-default"><i class="fa fa-print" style="font-size: 20px;"></i> <span style="font-size: 12px;">Student\'s not voted</span></a>'
       		$('#inlineEditDataTable_wrapper').append(addRowLink);
 
       		var nEditing = null;

@@ -26,6 +26,9 @@ Route::resource('generate', 'GeneratePasswordController');
 Route::resource('/', 'StudentLoginController');
 Route::resource('home', 'HomeController');
 
+Route::get('/print/notvoted', 'PrintController@notVoted');
+Route::get('/print/result', 'PrintController@result');
+
 // Event::listen('illuminate.query', function($sql, $params) {
 // 	var_dump($sql);
 // 	var_dump($params);

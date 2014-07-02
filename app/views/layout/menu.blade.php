@@ -97,8 +97,8 @@
 						</ul>
 					</li>
 					<li>
-						<a href="#">
-							<i class="fa fa-print"></i> Report
+						<a href="/print/result">
+							<i class="fa fa-print"></i> Result
 						</a>
 					</li>
 				</ul>
