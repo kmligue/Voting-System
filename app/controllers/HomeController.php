@@ -28,7 +28,11 @@ class HomeController extends \BaseController {
 								->select('students.fname', 'students.mname', 'students.lname', 'candidates.position_id', 'candidates.imagepath', 'candidates.id')
 								->get();
 
-		return View::make('client.home.index')->with('positions', $positions)->with('student', $student)->with('candidates', $candidates);
+		$senator_cnt = Position::where('name', '=', 'Senator')
+								->select('top')
+								->get();
+
+		return View::make('client.home.index')->with('positions', $positions)->with('student', $student)->with('candidates', $candidates)->with('senator_cnt', $senator_cnt);
 	}
 
 

@@ -22,13 +22,36 @@
 					<span style="font-size: 20px;">{{ $vp->candidate_name }}</span>
 				@endforeach
 			</div>
-			<h3>Secretary</h3>
-			<h3>Auditor</h3>
-			<h3>Treasurer</h3>
-			<h3>BSIT - Representative</h3>
-			<h3>ACT - Representative</h3>
-			<h3>BSHRM - Representative</h3>
-			<h3>HRS - Representative</h3>
+			<h3>Senator</h3>
+			<div style="text-indent: 110px;">
+				@foreach($senator as $sen)
+					<span style="font-size: 20px;">{{ $sen->candidate_name }}</span>
+				@endforeach
+			</div>
+			<h3>BSIT - Governor</h3>
+			<div style="text-indent: 110px;">
+				@foreach($bsit_gov as $b)
+					<span style="font-size: 20px;">{{ $b->candidate_name }}</span>
+				@endforeach
+			</div>
+			<h3>ASCT - Governor</h3>
+			<div style="text-indent: 110px;">
+				@foreach($asct_gov as $a)
+					<span style="font-size: 20px;">{{ $a->candidate_name }}</span>
+				@endforeach
+			</div>
+			<h3>BSHRM - Governor</h3>
+			<div style="text-indent: 110px;">
+				@foreach($hrm_gov as $hrm)
+					<span style="font-size: 20px;">{{ $hrm->candidate_name }}</span>
+				@endforeach
+			</div>
+			<h3>HRS - Governor</h3>
+			<div style="text-indent: 110px;">
+				@foreach($hrs_gov as $hrs)
+					<span style="font-size: 20px;">{{ $hrs->candidate_name }}</span>
+				@endforeach
+			</div>
 
 		</div>
 		<button type="button" class="btn btn-default" onclick="Clickheretoprint()" style="float: right;">Print</button>

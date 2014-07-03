@@ -97,6 +97,28 @@
 				});
 			}, 2000);
 
+
+
+			var scrollingUp = 0;
+
+			window.setInterval(scrollit, 3000);
+
+			function scrollit() {
+			    if(scrollingUp == 0) {
+			        $('#content').delay(2000).animate({ scrollTop: $("#content").scrollTop() + 100 }, 'slow');
+			    }
+			}
+
+			$('#content').bind('scroll', function () {
+			    
+			    if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+			        scrollingUp = 1;      
+			        $('#content').delay(2000).animate({ scrollTop: 0 }, 1000, function() {
+			            scrollingUp = 0;    
+			        });
+			    }
+			});
+
 			
 		})
 	</script>
