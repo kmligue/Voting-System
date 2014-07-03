@@ -43,6 +43,7 @@
 										<th class="sort-numeric">Id</th>
 										<th class="sort-alpha">Name</th>
 										<th class="sort-numeric">Ordinality</th>
+										<th class="sort-numeric">Top</th>
 										@if(Auth::user()->usertype_id == 1)
 											<th class="no-sort">Actions</th>
 										@endif
@@ -55,6 +56,7 @@
 											<td class="text-center">{{ $position->id }}</td>
 											<td class="text-center">{{ ucwords($position->name) }}</td>
 											<td class="text-center">{{ $position->ordinality }}</td>
+											<td class="text-center">{{ $position->top }}</td>
 											@if(Auth::user()->usertype_id == 1)
 												<td class="actions text-right"><?php if($position->ordinality != null) { ?><a class="edit" href="/position/{{ $position->id }}/edit">Edit</a> <?php } ?> <a class="delete" href="#delete" id="{{ $position->id }}" data-toggle="modal">Delete</a></td>
 											@endif

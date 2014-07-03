@@ -15,12 +15,14 @@ class Position extends Eloquent {
 	public static function savePosition() {
 		$rules = array(
 			'name' => 'required|alpha_dash',
-			'ordinality' => 'required|integer|unique:positions,ordinality'
+			'ordinality' => 'integer|unique:positions,ordinality',
+			'top' => 'required|integer'
 		);
 
 		$credentials = array(
 			'name' => Input::get('name'),
-			'ordinality' => Input::get('ordinality')
+			'ordinality' => Input::get('ordinality'),
+			'top' => Input::get('top')
 		);
 
 		$validator = Validator::make($credentials, $rules);
@@ -31,6 +33,7 @@ class Position extends Eloquent {
 
 		$position->name = ucwords(Input::get('name'));
 		$position->ordinality = Input::get('ordinality');
+		$position->top = Input::get('top');
 
 		$position->save();
 
@@ -41,12 +44,14 @@ class Position extends Eloquent {
 	public static function updatePosition($id) {
 		$rules = array(
 			'name' => 'required|alpha_dash',
-			'ordinality' => 'required|integer|unique:positions,ordinality,' . $id
+			'ordinality' => 'required|integer|unique:positions,ordinality,' . $id,
+			'top' => 'required|integer'
 		);
 
 		$credentials = array(
 			'name' => Input::get('name'),
-			'ordinality' => Input::get('ordinality')
+			'ordinality' => Input::get('ordinality'),
+			'top' => Input::get('top')
 		);
 
 		$validator = Validator::make($credentials, $rules);
@@ -57,6 +62,7 @@ class Position extends Eloquent {
 
 		$position->name = ucwords(Input::get('name'));
 		$position->ordinality = Input::get('ordinality');
+		$position->top = Input::get('top');
 
 		$position->save();
 

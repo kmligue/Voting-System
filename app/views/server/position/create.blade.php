@@ -50,9 +50,16 @@
 							</div>
 
 							<div class="form-group">
-								<label for="ordinality" class="col-sm-4 control-label">Ordinality *</label>
+								<label for="ordinality" class="col-sm-4 control-label">Ordinality</label>
 								<div class="col-sm-6">
-									{{ Form::text('ordinality', '', array('class' => 'form-control', 'id' => 'ordinality', 'parsley-trigger' => 'change', 'parsley-required' => 'true', 'parsley-type' => 'number', 'placeholder' => 'Must be a number. The lower the number, the higher the priority.')) }}
+									{{ Form::text('ordinality', '', array('class' => 'form-control', 'id' => 'ordinality', 'parsley-trigger' => 'change', 'parsley-type' => 'number', 'placeholder' => 'Must be a number. The lower the number, the higher the priority.')) }}
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="top" class="col-sm-4 control-label">Top *</label>
+								<div class="col-sm-6">
+									{{ Form::text('top', '', array('class' => 'form-control', 'id' => 'top', 'parsley-trigger' => 'change', 'parsley-type' => 'number')) }}
 								</div>
 							</div>
 

@@ -56,6 +56,13 @@
 								</div>
 							</div>
 
+							<div class="form-group">
+								<label for="top" class="col-sm-4 control-label">Top *</label>
+								<div class="col-sm-6">
+									{{ Form::text('top', $position->top, array('class' => 'form-control', 'id' => 'top', 'parsley-trigger' => 'change', 'parsley-type' => 'number')) }}
+								</div>
+							</div>
+
 							<div class="form-group form-footer">
 								<div class="col-sm-offset-5 col-sm-7">
 									<button type="submit" class="btn btn-primary">Submit</button>
